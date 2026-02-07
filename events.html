@@ -1,167 +1,65 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Alumni Connect • Events</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
-
-    body {
-      background: #f8fafc;
-      color: #1e293b;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
+    body { background:#f8fafc; color:#1e293b; }
 
     /* Navbar */
     .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: #ffffff;
-      border-bottom: 1px solid #e5e7eb;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1rem 2rem; background:#fff; border-bottom:1px solid #e5e7eb;
     }
-
     .nav-links a {
-      margin: 0 0.8rem;
-      text-decoration: none;
-      color: #334155;
-      font-weight: 500;
+      margin:0 0.8rem; text-decoration:none; color:#334155; font-weight:500;
     }
+    .active { color:#2563eb; border-bottom:2px solid #2563eb; }
+    .btn { padding:0.5rem 1rem; border:none; border-radius:6px; cursor:pointer; }
+    .btn-primary { background:#2563eb; color:#fff; }
 
-    .nav-link-active {
-      color: #2563eb;
-      border-bottom: 2px solid #2563eb;
-    }
+    /* Section */
+    .section { max-width:1200px; margin:auto; padding:3rem 2rem; }
+    .section-header { margin-bottom:1.5rem; }
 
-    .btn {
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .btn-primary {
-      background: #2563eb;
-      color: #fff;
-    }
-
-    .btn-secondary {
-      background: #e5e7eb;
-    }
-
-    /* Sections */
-    .section {
-      padding: 3rem 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .section-header {
-      margin-bottom: 1.5rem;
-    }
-
-    /* Events Grid */
+    /* Events */
     .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1.5rem;
     }
-
     .event-card {
-      background: #ffffff;
-      border-radius: 10px;
-      padding: 1.2rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      cursor: pointer;
-      transition: transform 0.2s;
+      background:#fff; padding:1.2rem; border-radius:10px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.05);
+      cursor:pointer; transition:0.2s;
     }
-
-    .event-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .event-icon {
-      font-size: 1.6rem;
-    }
-
-    .event-title {
-      font-weight: 600;
-      margin-top: 0.6rem;
-    }
-
-    .event-meta {
-      font-size: 0.8rem;
-      color: #475569;
-      margin-top: 0.3rem;
-    }
-
-    /* Admin Form */
-    .admin-panel {
-      background: #ffffff;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      margin-bottom: 2rem;
-    }
-
-    .admin-panel h3 {
-      margin-bottom: 1rem;
-    }
-
-    .admin-panel input,
-    .admin-panel textarea,
-    .admin-panel select {
-      width: 100%;
-      padding: 0.6rem;
-      margin-bottom: 0.8rem;
-      border-radius: 6px;
-      border: 1px solid #cbd5f5;
-    }
+    .event-card:hover { transform:translateY(-5px); }
+    .event-icon { font-size:1.6rem; }
+    .event-title { font-weight:600; margin-top:0.5rem; }
+    .event-category { font-size:0.8rem; color:#475569; }
 
     /* Modal */
     .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
+      position:fixed; inset:0; background:rgba(0,0,0,0.5);
+      display:none; align-items:center; justify-content:center;
     }
-
     .modal-content {
-      background: #ffffff;
-      padding: 2rem;
-      border-radius: 10px;
-      max-width: 450px;
-      width: 90%;
+      background:#fff; padding:2rem; border-radius:10px;
+      max-width:420px; width:90%;
     }
+    .modal-content h3 { margin-bottom:0.5rem; }
+    .modal-content p { font-size:0.9rem; margin-bottom:0.4rem; }
+    .close-btn { margin-top:1rem; }
 
-    .modal-content h3 {
-      margin-bottom: 0.6rem;
-    }
-
-    .modal-content p {
-      font-size: 0.9rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: #ffffff;
-      border-top: 1px solid #e5e7eb;
-      margin-top: 3rem;
+    footer {
+      text-align:center; padding:1.5rem;
+      background:#fff; border-top:1px solid #e5e7eb;
     }
   </style>
 </head>
@@ -171,10 +69,10 @@
 <header class="navbar">
   <strong>Alumni Connect</strong>
   <nav class="nav-links">
-    <a href="#" class="nav-link-active">Events</a>
-    <a href="#">Messages</a>
-    <a href="#">Projects</a>
-    <a href="#">Gallery</a>
+    <a class="active">Events</a>
+    <a>Messages</a>
+    <a>Projects</a>
+    <a>Gallery</a>
   </nav>
   <button class="btn btn-primary">Sign In</button>
 </header>
@@ -183,36 +81,17 @@
 
   <div class="section-header">
     <h2>Events & Webinars</h2>
-    <p>Organised events visible to students, alumni and admins.</p>
+    <p>Discover opportunities designed to shape your future.<br>
+      Connect with industry experts, alumni mentors, and peers.<br>
+      Learn, grow, and stay ahead with curated events and webinars.
+    </p>
   </div>
-
-  <!-- ===== ADMIN PANEL (ONLY ADMIN USES) ===== -->
-  <div class="admin-panel">
-    <h3>Admin • Add New Event</h3>
-
-    <input type="text" id="title" placeholder="Event Title" />
-    <input type="text" id="icon" placeholder="Emoji Icon (🎤 🚀 💼)" />
-    <input type="date" id="date" />
-    <input type="time" id="time" />
-    <select id="category">
-      <option value="">Select Category</option>
-      <option>Webinar</option>
-      <option>Workshop</option>
-      <option>Alumni Talk</option>
-      <option>Placement</option>
-      <option>Competition</option>
-    </select>
-    <textarea id="desc" placeholder="Event Description"></textarea>
-
-    <button class="btn btn-primary" onclick="addEvent()">Add Event</button>
-  </div>
-
-  <!-- ===== EVENTS LIST ===== -->
+</section>
   <div class="events-grid" id="eventsGrid"></div>
 
 </main>
 
-<!-- ===== EVENT DETAILS MODAL ===== -->
+<!-- EVENT DETAILS MODAL -->
 <div class="modal" id="eventModal">
   <div class="modal-content">
     <h3 id="mTitle"></h3>
@@ -220,86 +99,58 @@
     <p id="mDate"></p>
     <p id="mTime"></p>
     <p id="mDesc"></p>
-    <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+    <button class="btn btn-primary close-btn" onclick="closeModal()">Close</button>
   </div>
 </div>
 
-<footer class="footer">
+<footer>
   © 2026 Alumni Connect • MITAOE
 </footer>
 
 <script>
   const events = [
-    {
-      icon: "🎤",
-      title: "Alumni Talk: Career in AI",
-      category: "Alumni Talk",
-      date: "2026-02-10",
-      time: "11:00 AM",
-      desc: "Insights into AI careers by industry experts."
-    },
-    {
-      icon: "🚀",
-      title: "Entrepreneurship Bootcamp",
-      category: "Workshop",
-      date: "2026-02-15",
-      time: "10:00 AM",
-      desc: "Startup ideas, funding and mentorship."
-    },
-    {
-      icon: "💼",
-      title: "Placement Readiness Webinar",
-      category: "Placement",
-      date: "2026-02-20",
-      time: "02:00 PM",
-      desc: "Resume, aptitude and interview preparation."
-    }
+    {icon:"🎤", title:"Alumni Talk: Career in AI", category:"Alumni Talk", date:"10 Feb 2026", time:"11:00 AM", desc:"Alumni share insights on AI career paths."},
+    {icon:"🚀", title:"Entrepreneurship Bootcamp", category:"Workshop", date:"15 Feb 2026", time:"10:00 AM", desc:"Startup ideas, funding and mentorship."},
+    {icon:"💼", title:"Placement Readiness Webinar", category:"Placement", date:"20 Feb 2026", time:"2:00 PM", desc:"Interview, resume and aptitude guidance."},
+    {icon:"💻", title:"Web Development Workshop", category:"Workshop", date:"25 Feb 2026", time:"10:30 AM", desc:"Hands-on full stack development workshop."},
+
+    {icon:"📅", title:"Alumni Meet 2024", category:"Meetup", date:"10 Dec 2024", time:"4:00 PM", desc:"Annual alumni networking meet."},
+    {icon:"🤝", title:"Industry Connect Day", category:"Industry", date:"5 Jan 2025", time:"11:00 AM", desc:"Industry professionals interaction."},
+    {icon:"🏆", title:"Hackathon Winners Meetup", category:"Competition", date:"18 Jan 2025", time:"1:00 PM", desc:"Meet and interact with hackathon winners."},
+    {icon:"🌐", title:"Web3 Guest Lecture", category:"Guest Lecture", date:"22 Jan 2025", time:"3:00 PM", desc:"Introduction to Web3 and blockchain."},
+
+    {icon:"📝", title:"Resume Building Workshop", category:"Webinar", date:"28 Jan 2025", time:"11:30 AM", desc:"Build ATS-friendly resumes."},
+    {icon:"🎯", title:"Preparing for Placements", category:"Webinar", date:"30 Jan 2025", time:"2:30 PM", desc:"Complete placement preparation guide."},
+    {icon:"💰", title:"Startup Funding 101", category:"Webinar", date:"5 Feb 2025", time:"12:00 PM", desc:"Understanding startup funding stages."},
+    {icon:"🔧", title:"Mastering DSA", category:"Technical", date:"8 Feb 2025", time:"4:00 PM", desc:"Data Structures & Algorithms mastery."}
   ];
 
   function renderEvents() {
     const grid = document.getElementById("eventsGrid");
     grid.innerHTML = "";
-
-    events.forEach((e, i) => {
-      const card = document.createElement("div");
-      card.className = "event-card";
-      card.onclick = () => openModal(i);
-
-      card.innerHTML = `
+    events.forEach((e,i)=>{
+      const card=document.createElement("div");
+      card.className="event-card";
+      card.onclick=()=>openModal(i);
+      card.innerHTML=`
         <div class="event-icon">${e.icon}</div>
         <div class="event-title">${e.title}</div>
-        <div class="event-meta">${e.category}</div>
-      `;
-
+        <div class="event-category">${e.category}</div>`;
       grid.appendChild(card);
     });
   }
 
-  function addEvent() {
-    events.push({
-      icon: icon.value,
-      title: title.value,
-      category: category.value,
-      date: date.value,
-      time: time.value,
-      desc: desc.value
-    });
-    renderEvents();
+  function openModal(i){
+    const e=events[i];
+    mTitle.innerText=e.title;
+    mCategory.innerText="Category: "+e.category;
+    mDate.innerText="Date: "+e.date;
+    mTime.innerText="Time: "+e.time;
+    mDesc.innerText=e.desc;
+    eventModal.style.display="flex";
   }
 
-  function openModal(i) {
-    const e = events[i];
-    mTitle.innerText = e.title;
-    mCategory.innerText = "Category: " + e.category;
-    mDate.innerText = "Date: " + e.date;
-    mTime.innerText = "Time: " + e.time;
-    mDesc.innerText = e.desc;
-    eventModal.style.display = "flex";
-  }
-
-  function closeModal() {
-    eventModal.style.display = "none";
-  }
+  function closeModal(){ eventModal.style.display="none"; }
 
   renderEvents();
 </script>
