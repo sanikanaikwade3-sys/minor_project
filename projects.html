@@ -7,156 +7,157 @@
 
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-
-  <style>
-    .section-actions {
-      text-align: right;
-      margin-bottom: 1rem;
-    }
-    .hidden { display: none; }
-
-    /* Modal */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-content {
-      background: #020617;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      width: 420px;
-    }
-    .modal-content input,
-    .modal-content textarea {
-      width: 100%;
-      margin-bottom: 0.7rem;
-      padding: 0.5rem;
-      border-radius: 0.4rem;
-      border: none;
-    }
-  </style>
 </head>
 
 <body>
 <header class="navbar">
-  <div class="brand">
-    <span class="brand-title">Alumni Connect</span>
+  <div class="nav-left">
+    <div class="logo-wrapper">
+      <img src="mitaoe-logo.png" alt="MITAOE logo" class="logo-img" />
+    </div>
+    <div class="brand">
+      <span class="brand-title">Alumni Connect</span>
+      <span class="brand-subtitle">Students × Alumni</span>
+    </div>
+  </div>
+
+  <nav class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="communities.html" class="nav-link">Communities</a>
+    <a href="events.html" class="nav-link">Events</a>
+    <a href="projects.html" class="nav-link nav-link-active">Projects</a>
+    <a href="gallery.html" class="nav-link">Gallery</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </nav>
+
+  <div class="nav-actions">
+    <button class="btn btn-ghost auth-btn">Sign In</button>
+    <button class="btn btn-primary auth-btn">Sign Up</button>
   </div>
 </header>
 
 <main>
-  <section class="section">
-    <div class="section-header">
-      <h2>Student–Alumni Projects</h2>
-      <p>Collaborative projects created by alumni and students.</p>
+<section class="section">
+  <div class="section-header">
+    <h2>Student–Alumni Projects</h2>
+    <p>
+      Real-world collaborations between MITAOE students and alumni.
+    </p>
+  </div>
+
+  <!-- ADD PROJECT (VISIBLE ONLY TO ADMIN / ALUMNI) -->
+  <div id="addProjectSection" class="about-card" style="display:none;">
+    <h3>Add New Project</h3>
+    <input id="projTitle" type="text" placeholder="Project Title" style="width:100%;margin-bottom:8px;" />
+    <textarea id="projDesc" placeholder="Project Description" style="width:100%;margin-bottom:8px;"></textarea>
+    <button class="btn btn-primary" id="addProjectBtn">Add Project</button>
+  </div>
+
+  <!-- PROJECT LIST -->
+  <div class="about-grid" id="projectsContainer">
+
+    <!-- Existing static projects (UNCHANGED) -->
+    <div class="about-card">
+      <h3>Placement Tracker Dashboard</h3>
+      <p>A platform where alumni share placement insights.</p>
     </div>
 
-    <!-- ADMIN / ALUMNI ACTION -->
-    <div class="section-actions">
-      <button id="addProjectBtn" class="btn btn-primary hidden">
-        Add Project
-      </button>
+    <div class="about-card">
+      <h3>Smart Campus Energy Monitor</h3>
+      <p>IoT-based energy monitoring system.</p>
     </div>
 
-    <!-- PROJECT GRID -->
-    <div class="about-grid" id="projectGrid"></div>
-  </section>
+  </div>
+</section>
 </main>
 
-<!-- ADD PROJECT MODAL -->
-<div id="projectModal" class="modal hidden">
-  <div class="modal-content">
-    <h3>Add New Project</h3>
-    <input id="projectTitle" placeholder="Project Title" />
-    <textarea id="projectDesc" placeholder="Project Description"></textarea>
-    <button class="btn btn-primary btn-full" id="saveProjectBtn">
-      Save Project
-    </button>
-  </div>
-</div>
+<footer class="footer">
+  <p>© Alumni Connect</p>
+</footer>
 
 <script>
-/* =====================
-   AUTH (Mock – Backend Ready)
-===================== */
+/* ================================
+   AUTH CONTEXT (Frontend Only)
+   Replace with real auth later
+================================ */
 function getCurrentUser() {
   return {
-    id: "u101",
-    role: localStorage.getItem("role") || "student" 
+    id: "demoUser01",
+    role: localStorage.getItem("userRole") || "student"
     // admin | alumni | student
   };
 }
 
 const user = getCurrentUser();
 
-/* =====================
-   ROLE-BASED UI
-===================== */
+/* ================================
+   ROLE BASED UI
+================================ */
 if (user.role === "admin" || user.role === "alumni") {
-  document.getElementById("addProjectBtn").classList.remove("hidden");
+  document.getElementById("addProjectSection").style.display = "block";
 }
 
-/* =====================
-   API-STYLE FUNCTIONS
-===================== */
+/* ================================
+   API FUNCTIONS (MongoDB Ready)
+================================ */
+
+// GET projects
 async function fetchProjects() {
-  // Later: GET /api/projects
-  return [
-    {
-      title: "Placement Tracker Dashboard",
-      description: "Platform for placement guidance with alumni insights."
-    },
-    {
-      title: "Smart Campus Energy Monitor",
-      description: "IoT-based system for optimizing campus energy usage."
-    }
-  ];
+  // 🔹 Later replace with:
+  // return fetch("/api/projects").then(res => res.json());
+
+  return []; // dynamic projects will come from backend
 }
 
+// POST project
 async function createProject(project) {
-  // Later: POST /api/projects
-  console.log("Sending project to backend:", project);
+  // 🔹 Later replace with:
+  // return fetch("/api/projects", { method:"POST", headers:{...}, body:JSON.stringify(project) });
+
+  console.log("Project sent to backend:", project);
 }
 
-/* =====================
+/* ================================
    RENDER PROJECTS
-===================== */
+================================ */
 async function renderProjects() {
   const projects = await fetchProjects();
-  const grid = document.getElementById("projectGrid");
+  const container = document.getElementById("projectsContainer");
 
-  grid.innerHTML = "";
   projects.forEach(p => {
-    grid.innerHTML += `
-      <div class="about-card">
-        <h3>${p.title}</h3>
-        <p>${p.description}</p>
-      </div>
-    `;
+    const card = document.createElement("div");
+    card.className = "about-card";
+    card.innerHTML = `<h3>${p.title}</h3><p>${p.description}</p>`;
+    container.appendChild(card);
   });
 }
 
-/* =====================
+/* ================================
    EVENTS
-===================== */
-addProjectBtn.onclick = () => {
-  projectModal.classList.remove("hidden");
-};
+================================ */
+document.getElementById("addProjectBtn").addEventListener("click", async () => {
+  const title = projTitle.value.trim();
+  const desc = projDesc.value.trim();
 
-saveProjectBtn.onclick = async () => {
+  if (!title || !desc) {
+    alert("Please fill all fields");
+    return;
+  }
+
   await createProject({
-    title: projectTitle.value,
-    description: projectDesc.value,
+    title,
+    description: desc,
     createdBy: user.id
   });
-  projectModal.classList.add("hidden");
-  renderProjects();
-};
 
+  projTitle.value = "";
+  projDesc.value = "";
+});
+
+/* ================================
+   INIT
+================================ */
 renderProjects();
 </script>
 </body>
