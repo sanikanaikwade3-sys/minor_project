@@ -1,66 +1,67 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alumni Connect • Events</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alumni Connect • Events & Messages</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
-    body { background:#f8fafc; color:#1e293b; }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
+    body{background:#f8fafc;color:#1e293b}
 
     /* Navbar */
-    .navbar {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:1rem 2rem; background:#fff; border-bottom:1px solid #e5e7eb;
+    .navbar{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1rem 2rem;background:#fff;border-bottom:1px solid #e5e7eb
     }
-    .nav-links a {
-      margin:0 0.8rem; text-decoration:none; color:#334155; font-weight:500;
+    .nav-links a{margin:0 0.8rem;text-decoration:none;color:#334155;font-weight:500}
+    .nav-link-active{color:#2563eb;border-bottom:2px solid #2563eb}
+    .btn{padding:0.5rem 1rem;border-radius:6px;border:none;cursor:pointer;font-weight:500}
+    .btn-primary{background:#2563eb;color:#fff}
+
+    /* Sections */
+    .section{padding:3rem 2rem;max-width:1200px;margin:auto}
+    .section-header h2,.section-header h3{margin-bottom:0.5rem}
+
+    /* EVENTS */
+    .event-input{
+      padding:0.7rem;border-radius:6px;border:1px solid #c7d2fe;outline:none
     }
-    .active { color:#2563eb; border-bottom:2px solid #2563eb; }
-    .btn { padding:0.5rem 1rem; border:none; border-radius:6px; cursor:pointer; }
-    .btn-primary { background:#2563eb; color:#fff; }
-
-    /* Section */
-    .section { max-width:1200px; margin:auto; padding:3rem 2rem; }
-    .section-header { margin-bottom:1.5rem; }
-
-    /* Events */
-    .events-grid {
+    .events-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:1.5rem;
+      gap:1.5rem;margin-top:2.5rem
     }
-    .event-card {
-      background:#fff; padding:1.2rem; border-radius:10px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.05);
-      cursor:pointer; transition:0.2s;
+    .event-card{
+      background:#fff;padding:1.2rem;border-radius:10px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.05)
     }
-    .event-card:hover { transform:translateY(-5px); }
-    .event-icon { font-size:1.6rem; }
-    .event-title { font-weight:600; margin-top:0.5rem; }
-    .event-category { font-size:0.8rem; color:#475569; }
+    .event-meta{font-size:0.8rem;color:#475569}
 
-    /* Modal */
-    .modal {
-      position:fixed; inset:0; background:rgba(0,0,0,0.5);
-      display:none; align-items:center; justify-content:center;
+    /* ================= MESSAGE SECTION ================= */
+    .message-container{
+      display:grid;grid-template-columns:300px 1fr;height:520px;
+      background:#fff;border-radius:10px;overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.05)
     }
-    .modal-content {
-      background:#fff; padding:2rem; border-radius:10px;
-      max-width:420px; width:90%;
-    }
-    .modal-content h3 { margin-bottom:0.5rem; }
-    .modal-content p { font-size:0.9rem; margin-bottom:0.4rem; }
-    .close-btn { margin-top:1rem; }
+    .conversation-list{border-right:1px solid #e5e7eb;background:#f9fafb;overflow-y:auto}
+    .conversation{padding:1rem;cursor:pointer;border-bottom:1px solid #e5e7eb}
+    .conversation:hover,.conversation.active{background:#e0e7ff}
+    .conversation h4{font-size:0.95rem}
+    .conversation span{font-size:0.75rem;color:#475569}
+    .chat-area{display:flex;flex-direction:column}
+    .chat-header{padding:1rem;border-bottom:1px solid #e5e7eb;font-weight:600}
+    .chat-messages{flex:1;padding:1rem;overflow-y:auto;background:#f8fafc}
+    .message{margin-bottom:0.8rem;max-width:70%;padding:0.6rem 0.8rem;border-radius:8px;font-size:0.85rem}
+    .message.student{background:#e0f2fe;align-self:flex-start}
+    .message.alumni{background:#dcfce7;align-self:flex-end}
+    .chat-input{display:flex;padding:0.8rem;border-top:1px solid #e5e7eb}
+    .chat-input input{flex:1;padding:0.6rem;border-radius:6px;border:1px solid #cbd5f5}
+    .chat-input button{margin-left:0.5rem}
 
-    footer {
-      text-align:center; padding:1.5rem;
-      background:#fff; border-top:1px solid #e5e7eb;
-    }
+    .footer{text-align:center;padding:1.5rem;background:#fff;border-top:1px solid #e5e7eb;margin-top:3rem}
   </style>
 </head>
 
@@ -69,7 +70,7 @@
 <header class="navbar">
   <strong>Alumni Connect</strong>
   <nav class="nav-links">
-    <a class="active">Events</a>
+    <a class="nav-link-active">Events</a>
     <a>Messages</a>
     <a>Projects</a>
     <a>Gallery</a>
@@ -77,80 +78,123 @@
   <button class="btn btn-primary">Sign In</button>
 </header>
 
-<main class="section">
+<main>
 
+<!-- ================= EVENTS SECTION ================= -->
+<section class="section">
   <div class="section-header">
     <h2>Events & Webinars</h2>
-    <p>Discover opportunities designed to shape your future.<br>
-      Connect with industry experts, alumni mentors, and peers.<br>
-      Learn, grow, and stay ahead with curated events and webinars.
+    <p>
+      Step into opportunities that shape your future.<br>
+      Learn from alumni leaders and industry experts.<br>
+      Stay inspired, stay prepared, and grow together.
     </p>
   </div>
+
+  <!-- ADMIN ADD EVENT -->
+  <div style="background:#fff;padding:2rem;border-radius:10px;margin-top:2rem;
+              box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+    <h3>Admin • Add New Event</h3>
+
+    <div style="display:grid;gap:1rem;margin-top:1rem;">
+      <input id="eTitle" class="event-input" placeholder="Event Title">
+      <input id="eIcon" class="event-input" placeholder="Emoji Icon ( 🎤 🚀 💻 )">
+      <input id="eDate" class="event-input" type="date">
+      <input id="eTime" class="event-input" type="time">
+
+      <select id="eCategory" class="event-input">
+        <option value="">Select Category</option>
+        <option>Workshop</option>
+        <option>Webinar</option>
+        <option>Placement</option>
+        <option>Alumni Talk</option>
+        <option>Industry</option>
+        <option>Meetup</option>
+      </select>
+
+      <textarea id="eDesc" class="event-input" placeholder="Event Description"></textarea>
+      <button class="btn btn-primary" onclick="addEvent()">Add Event</button>
+    </div>
+  </div>
+
+  <!-- EVENTS DISPLAY -->
   <div class="events-grid" id="eventsGrid"></div>
-  </section>
+</section>
+
+<!-- ================= MESSAGE SECTION (UNCHANGED) ================= -->
+<section class="section">
+  <div class="section-header">
+    <h3>Alumni – Student Messaging</h3>
+    <p>Ask questions about internships, projects and career guidance.</p>
+  </div>
+
+  <div class="message-container">
+    <div class="conversation-list">
+      <div class="conversation active">
+        <h4>Rahul Patil</h4><span>Alumni • Software Engineer</span>
+      </div>
+      <div class="conversation">
+        <h4>Neha Kulkarni</h4><span>Student • TY Comp</span>
+      </div>
+    </div>
+
+    <div class="chat-area">
+      <div class="chat-header">Rahul Patil (Alumni)</div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message student">Hello sir, can you guide me for internships?</div>
+        <div class="message alumni">Sure, tell me your tech stack.</div>
+      </div>
+      <div class="chat-input">
+        <input id="messageInput" placeholder="Type your message...">
+        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+</section>
 
 </main>
 
-<!-- EVENT DETAILS MODAL -->
-<div class="modal" id="eventModal">
-  <div class="modal-content">
-    <h3 id="mTitle"></h3>
-    <p id="mCategory"></p>
-    <p id="mDate"></p>
-    <p id="mTime"></p>
-    <p id="mDesc"></p>
-    <button class="btn btn-primary close-btn" onclick="closeModal()">Close</button>
-  </div>
-</div>
-
-<footer>
+<footer class="footer">
   © 2026 Alumni Connect • MITAOE
 </footer>
 
 <script>
-  const events = [
-    {icon:"🎤", title:"Alumni Talk: Career in AI", category:"Alumni Talk", date:"10 Feb 2026", time:"11:00 AM", desc:"Alumni share insights on AI career paths."},
-    {icon:"🚀", title:"Entrepreneurship Bootcamp", category:"Workshop", date:"15 Feb 2026", time:"10:00 AM", desc:"Startup ideas, funding and mentorship."},
-    {icon:"💼", title:"Placement Readiness Webinar", category:"Placement", date:"20 Feb 2026", time:"2:00 PM", desc:"Interview, resume and aptitude guidance."},
-    {icon:"💻", title:"Web Development Workshop", category:"Workshop", date:"25 Feb 2026", time:"10:30 AM", desc:"Hands-on full stack development workshop."},
-
-    {icon:"📅", title:"Alumni Meet 2024", category:"Meetup", date:"10 Dec 2024", time:"4:00 PM", desc:"Annual alumni networking meet."},
-    {icon:"🤝", title:"Industry Connect Day", category:"Industry", date:"5 Jan 2025", time:"11:00 AM", desc:"Industry professionals interaction."},
-    {icon:"🏆", title:"Hackathon Winners Meetup", category:"Competition", date:"18 Jan 2025", time:"1:00 PM", desc:"Meet and interact with hackathon winners."},
-    {icon:"🌐", title:"Web3 Guest Lecture", category:"Guest Lecture", date:"22 Jan 2025", time:"3:00 PM", desc:"Introduction to Web3 and blockchain."},
-
-    {icon:"📝", title:"Resume Building Workshop", category:"Webinar", date:"28 Jan 2025", time:"11:30 AM", desc:"Build ATS-friendly resumes."},
-    {icon:"🎯", title:"Preparing for Placements", category:"Webinar", date:"30 Jan 2025", time:"2:30 PM", desc:"Complete placement preparation guide."},
-    {icon:"💰", title:"Startup Funding 101", category:"Webinar", date:"5 Feb 2025", time:"12:00 PM", desc:"Understanding startup funding stages."},
-    {icon:"🔧", title:"Mastering DSA", category:"Technical", date:"8 Feb 2025", time:"4:00 PM", desc:"Data Structures & Algorithms mastery."}
+  const events=[
+    {icon:"🎤",title:"Alumni Talk: Career in AI",category:"Alumni Talk",date:"2026-02-10",time:"11:00",desc:"Guidance from AI professionals."},
+    {icon:"🚀",title:"Entrepreneurship Bootcamp",category:"Workshop",date:"2026-02-15",time:"10:00",desc:"Startup ideas & funding."},
+    {icon:"💼",title:"Placement Readiness Webinar",category:"Placement",date:"2026-02-20",time:"14:00",desc:"Interview preparation."},
+    {icon:"💻",title:"Web Development Workshop",category:"Workshop",date:"2026-02-25",time:"10:30",desc:"Hands-on development."},
+    {icon:"🤝",title:"Industry Connect Day",category:"Industry",date:"2026-03-01",time:"11:00",desc:"Industry networking."},
+    {icon:"📝",title:"Resume Building Workshop",category:"Webinar",date:"2026-03-05",time:"12:00",desc:"ATS-friendly resumes."}
   ];
 
-  function renderEvents() {
-    const grid = document.getElementById("eventsGrid");
-    grid.innerHTML = "";
-    events.forEach((e,i)=>{
-      const card=document.createElement("div");
-      card.className="event-card";
-      card.onclick=()=>openModal(i);
-      card.innerHTML=`
-        <div class="event-icon">${e.icon}</div>
-        <div class="event-title">${e.title}</div>
-        <div class="event-category">${e.category}</div>`;
-      grid.appendChild(card);
+  function renderEvents(){
+    eventsGrid.innerHTML="";
+    events.forEach(e=>{
+      eventsGrid.innerHTML+=`
+        <div class="event-card">
+          <div style="font-size:1.6rem">${e.icon}</div>
+          <h4>${e.title}</h4>
+          <div class="event-meta">${e.category}</div>
+          <div class="event-meta">📅 ${e.date} ⏰ ${e.time}</div>
+          <p style="font-size:0.85rem;margin-top:0.5rem">${e.desc}</p>
+        </div>`;
     });
   }
 
-  function openModal(i){
-    const e=events[i];
-    mTitle.innerText=e.title;
-    mCategory.innerText="Category: "+e.category;
-    mDate.innerText="Date: "+e.date;
-    mTime.innerText="Time: "+e.time;
-    mDesc.innerText=e.desc;
-    eventModal.style.display="flex";
+  function addEvent(){
+    events.unshift({
+      icon:eIcon.value,title:eTitle.value,category:eCategory.value,
+      date:eDate.value,time:eTime.value,desc:eDesc.value
+    });
+    renderEvents();
   }
 
-  function closeModal(){ eventModal.style.display="none"; }
+  function sendMessage(){
+    if(!messageInput.value.trim())return;
+    chatMessages.innerHTML+=`<div class="message student">${messageInput.value}</div>`;
+    messageInput.value="";
+  }
 
   renderEvents();
 </script>
