@@ -2,253 +2,153 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Events • Alumni Connect</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alumni Connect • Events</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body { font-family: Poppins, sans-serif; margin:0; background:#f8fafc; }
-    h2,h3,h4 { margin:0 }
-    .navbar{display:flex;justify-content:space-between;align-items:center;padding:14px 40px;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-    .nav-links a{margin:0 12px;text-decoration:none;color:#334155;font-weight:500}
-    .nav-link-active{color:#2563eb}
-    .btn{padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-weight:500}
-    .btn-primary{background:#2563eb;color:#fff}
-    .section{padding:50px 80px}
-    .section-header{text-align:center;max-width:800px;margin:auto}
-    .events-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:30px}
-    .event-item{background:#fff;padding:18px;border-radius:14px;cursor:pointer;display:flex;gap:12px;align-items:center;box-shadow:0 8px 20px rgba(0,0,0,.05);transition:.2s}
-    .event-item:hover{transform:translateY(-4px)}
-    .event-icon{font-size:22px}
-    footer{text-align:center;padding:20px;color:#64748b}
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
+    body { background:#f8fafc; color:#1e293b; }
 
-    /* MODAL */
-    .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center}
-    .modal-box{background:#fff;padding:25px;border-radius:16px;width:95%;max-width:480px}
-    .modal-box h3{margin-bottom:6px}
-    label{display:block;margin-top:12px;font-size:14px}
-    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #cbd5f5}
-    textarea{resize:none}
-    .hidden{display:none}
+    /* Navbar */
+    .navbar {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1rem 2rem; background:#fff; border-bottom:1px solid #e5e7eb;
+    }
+    .nav-links a {
+      margin:0 0.8rem; text-decoration:none; color:#334155; font-weight:500;
+    }
+    .active { color:#2563eb; border-bottom:2px solid #2563eb; }
+    .btn { padding:0.5rem 1rem; border:none; border-radius:6px; cursor:pointer; }
+    .btn-primary { background:#2563eb; color:#fff; }
+
+    /* Section */
+    .section { max-width:1200px; margin:auto; padding:3rem 2rem; }
+    .section-header { margin-bottom:1.5rem; }
+
+    /* Events */
+    .events-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1.5rem;
+    }
+    .event-card {
+      background:#fff; padding:1.2rem; border-radius:10px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.05);
+      cursor:pointer; transition:0.2s;
+    }
+    .event-card:hover { transform:translateY(-5px); }
+    .event-icon { font-size:1.6rem; }
+    .event-title { font-weight:600; margin-top:0.5rem; }
+    .event-category { font-size:0.8rem; color:#475569; }
+
+    /* Modal */
+    .modal {
+      position:fixed; inset:0; background:rgba(0,0,0,0.5);
+      display:none; align-items:center; justify-content:center;
+    }
+    .modal-content {
+      background:#fff; padding:2rem; border-radius:10px;
+      max-width:420px; width:90%;
+    }
+    .modal-content h3 { margin-bottom:0.5rem; }
+    .modal-content p { font-size:0.9rem; margin-bottom:0.4rem; }
+    .close-btn { margin-top:1rem; }
+
+    footer {
+      text-align:center; padding:1.5rem;
+      background:#fff; border-top:1px solid #e5e7eb;
+    }
   </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <header class="navbar">
-  <h3>Alumni Connect</h3>
+  <strong>Alumni Connect</strong>
   <nav class="nav-links">
-    <a href="#">Home</a>
-    <a href="#">Communities</a>
-    <a class="nav-link-active" href="#">Events</a>
-    <a href="#">Projects</a>
-    <a href="#">Gallery</a>
+    <a class="active">Events</a>
+    <a>Messages</a>
+    <a>Projects</a>
+    <a>Gallery</a>
   </nav>
+  <button class="btn btn-primary">Sign In</button>
 </header>
 
-<main>
+<main class="section">
 
-<!-- HEADER -->
-<section class="section">
   <div class="section-header">
     <h2>Events & Webinars</h2>
-    <p>Admin manages events. Students & Alumni can view updated information.</p>
+    <p>All organised events visible to students, alumni and admin.</p>
   </div>
-</section>
 
-<!-- UPCOMING -->
-<section class="section">
-  <h3>Upcoming Events</h3>
-  <div class="events-list">
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Alumni Talk: Career in AI"
-      data-desc="Industry alumni discuss AI career paths."
-      data-date="2026-03-10"
-      data-time="11:00"
-      data-by="MITAOE Alumni">
-      <div class="event-icon">🎤</div><h4>Alumni Talk: Career in AI</h4>
-    </div>
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Entrepreneurship Bootcamp"
-      data-desc="Startup mindset & funding guidance."
-      data-date="2026-03-15"
-      data-time="10:00"
-      data-by="E-Cell MITAOE">
-      <div class="event-icon">🚀</div><h4>Entrepreneurship Bootcamp</h4>
-    </div>
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Placement Readiness Webinar"
-      data-desc="Aptitude, resume & interview prep."
-      data-date="2026-03-18"
-      data-time="16:00"
-      data-by="Training & Placement Cell">
-      <div class="event-icon">💼</div><h4>Placement Readiness Webinar</h4>
-    </div>
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Web Development Workshop"
-      data-desc="Hands-on full stack development."
-      data-date="2026-03-22"
-      data-time="09:30"
-      data-by="CS Department">
-      <div class="event-icon">💻</div><h4>Web Development Workshop</h4>
-    </div>
-
-  </div>
-</section>
-
-<!-- PAST -->
-<section class="section">
-  <h3>Past Events</h3>
-  <div class="events-list">
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Alumni Meet 2024"
-      data-desc="Annual alumni gathering."
-      data-date="2024-12-10"
-      data-time="10:00"
-      data-by="MITAOE">
-      <div class="event-icon">📅</div><h4>Alumni Meet 2024</h4>
-    </div>
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Industry Connect Day"
-      data-desc="Interaction with industry experts."
-      data-date="2024-11-05"
-      data-time="11:30"
-      data-by="Industry Relations">
-      <div class="event-icon">🤝</div><h4>Industry Connect Day</h4>
-    </div>
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Hackathon Winners Meetup"
-      data-desc="Celebrating innovation winners."
-      data-date="2024-10-02"
-      data-time="14:00"
-      data-by="Hackathon Club">
-      <div class="event-icon">🏆</div><h4>Hackathon Winners Meetup</h4>
-    </div>
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Web3 Guest Lecture"
-      data-desc="Blockchain & Web3 overview."
-      data-date="2024-09-18"
-      data-time="12:00"
-      data-by="Blockchain Society">
-      <div class="event-icon">🌐</div><h4>Web3 Guest Lecture</h4>
-    </div>
-
-  </div>
-</section>
-
-<!-- FEATURED -->
-<section class="section">
-  <h3>Featured Webinars</h3>
-  <div class="events-list">
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Resume Building Workshop"
-      data-desc="Professional resume guidance."
-      data-date="2026-04-01"
-      data-time="15:00"
-      data-by="Career Cell">
-      <div class="event-icon">📝</div><h4>Resume Building Workshop</h4>
-    </div>
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Preparing for Placements"
-      data-desc="Company-specific preparation tips."
-      data-date="2026-04-05"
-      data-time="16:30"
-      data-by="Placement Office">
-      <div class="event-icon">🎯</div><h4>Preparing for Placements</h4>
-    </div>
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Startup Funding 101"
-      data-desc="Angel & VC funding basics."
-      data-date="2026-04-10"
-      data-time="17:00"
-      data-by="Startup Cell">
-      <div class="event-icon">💰</div><h4>Startup Funding 101</h4>
-    </div>
-
-    <div class="event-item" onclick="openEvent(this)"
-      data-title="Mastering DSA"
-      data-desc="Data Structures for placements."
-      data-date="2026-04-15"
-      data-time="18:00"
-      data-by="Coding Club">
-      <div class="event-icon">🔧</div><h4>Mastering DSA</h4>
-    </div>
-
-  </div>
-</section>
+  <div class="events-grid" id="eventsGrid"></div>
 
 </main>
 
-<footer>
-  © 2026 Alumni Connect
-</footer>
-
-<!-- EVENT MODAL -->
+<!-- EVENT DETAILS MODAL -->
 <div class="modal" id="eventModal">
-  <div class="modal-box">
+  <div class="modal-content">
     <h3 id="mTitle"></h3>
-    <p id="mRole" style="color:#64748b;font-size:13px"></p>
-
-    <label>Description</label>
-    <textarea id="mDesc"></textarea>
-
-    <label>Date</label>
-    <input type="date" id="mDate">
-
-    <label>Time</label>
-    <input type="time" id="mTime">
-
-    <label>Organized By</label>
-    <input type="text" id="mBy">
-
-    <button class="btn btn-primary hidden" id="saveBtn" onclick="saveEvent()">Save Changes</button>
+    <p id="mCategory"></p>
+    <p id="mDate"></p>
+    <p id="mTime"></p>
+    <p id="mDesc"></p>
+    <button class="btn btn-primary close-btn" onclick="closeModal()">Close</button>
   </div>
 </div>
 
+<footer>
+  © 2026 Alumni Connect • MITAOE
+</footer>
+
 <script>
-  /* CHANGE ROLE HERE */
-  const currentUserRole = "admin"; // student | alumni | admin
-  let activeCard = null;
+  const events = [
+    {icon:"🎤", title:"Alumni Talk: Career in AI", category:"Alumni Talk", date:"10 Feb 2026", time:"11:00 AM", desc:"Alumni share insights on AI career paths."},
+    {icon:"🚀", title:"Entrepreneurship Bootcamp", category:"Workshop", date:"15 Feb 2026", time:"10:00 AM", desc:"Startup ideas, funding and mentorship."},
+    {icon:"💼", title:"Placement Readiness Webinar", category:"Placement", date:"20 Feb 2026", time:"2:00 PM", desc:"Interview, resume and aptitude guidance."},
+    {icon:"💻", title:"Web Development Workshop", category:"Workshop", date:"25 Feb 2026", time:"10:30 AM", desc:"Hands-on full stack development workshop."},
 
-  function openEvent(card){
-    activeCard = card;
-    mTitle.innerText = card.dataset.title;
-    mDesc.value = card.dataset.desc;
-    mDate.value = card.dataset.date;
-    mTime.value = card.dataset.time;
-    mBy.value = card.dataset.by;
+    {icon:"📅", title:"Alumni Meet 2024", category:"Meetup", date:"10 Dec 2024", time:"4:00 PM", desc:"Annual alumni networking meet."},
+    {icon:"🤝", title:"Industry Connect Day", category:"Industry", date:"5 Jan 2025", time:"11:00 AM", desc:"Industry professionals interaction."},
+    {icon:"🏆", title:"Hackathon Winners Meetup", category:"Competition", date:"18 Jan 2025", time:"1:00 PM", desc:"Meet and interact with hackathon winners."},
+    {icon:"🌐", title:"Web3 Guest Lecture", category:"Guest Lecture", date:"22 Jan 2025", time:"3:00 PM", desc:"Introduction to Web3 and blockchain."},
 
-    const isAdmin = currentUserRole === "admin";
-    [mDesc,mDate,mTime,mBy].forEach(f=>f.disabled=!isAdmin);
-    saveBtn.classList.toggle("hidden",!isAdmin);
-    mRole.innerText = isAdmin ? "Admin Mode: You can update event" : "View Only";
+    {icon:"📝", title:"Resume Building Workshop", category:"Webinar", date:"28 Jan 2025", time:"11:30 AM", desc:"Build ATS-friendly resumes."},
+    {icon:"🎯", title:"Preparing for Placements", category:"Webinar", date:"30 Jan 2025", time:"2:30 PM", desc:"Complete placement preparation guide."},
+    {icon:"💰", title:"Startup Funding 101", category:"Webinar", date:"5 Feb 2025", time:"12:00 PM", desc:"Understanding startup funding stages."},
+    {icon:"🔧", title:"Mastering DSA", category:"Technical", date:"8 Feb 2025", time:"4:00 PM", desc:"Data Structures & Algorithms mastery."}
+  ];
 
+  function renderEvents() {
+    const grid = document.getElementById("eventsGrid");
+    grid.innerHTML = "";
+    events.forEach((e,i)=>{
+      const card=document.createElement("div");
+      card.className="event-card";
+      card.onclick=()=>openModal(i);
+      card.innerHTML=`
+        <div class="event-icon">${e.icon}</div>
+        <div class="event-title">${e.title}</div>
+        <div class="event-category">${e.category}</div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function openModal(i){
+    const e=events[i];
+    mTitle.innerText=e.title;
+    mCategory.innerText="Category: "+e.category;
+    mDate.innerText="Date: "+e.date;
+    mTime.innerText="Time: "+e.time;
+    mDesc.innerText=e.desc;
     eventModal.style.display="flex";
   }
 
-  function saveEvent(){
-    activeCard.dataset.desc = mDesc.value;
-    activeCard.dataset.date = mDate.value;
-    activeCard.dataset.time = mTime.value;
-    activeCard.dataset.by = mBy.value;
-    eventModal.style.display="none";
-  }
+  function closeModal(){ eventModal.style.display="none"; }
 
-  eventModal.onclick = e => { if(e.target===eventModal) eventModal.style.display="none"; }
+  renderEvents();
 </script>
 
 </body>
