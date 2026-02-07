@@ -45,7 +45,25 @@
             build real things together.
           </p>
         </div>
-        <div class="about-grid">
+
+        <!-- ADD PROJECT SECTION (Admin / Alumni only) -->
+        <div id="addProjectSection" class="about-card" style="display:none;">
+          <h3>Add New Project</h3>
+          <input
+            type="text"
+            id="projTitle"
+            placeholder="Project Title"
+            style="width:100%; margin-bottom:8px;"
+          />
+          <textarea
+            id="projDesc"
+            placeholder="Project Description"
+            style="width:100%; margin-bottom:8px;"
+          ></textarea>
+          <button class="btn btn-primary" onclick="addProject()">Add Project</button>
+        </div>
+
+        <div class="about-grid" id="projectsContainer">
           <div class="about-card">
             <h3>Placement Tracker Dashboard</h3>
             <p>
@@ -221,7 +239,8 @@
               Create Account (demo)
             </button>
             <p class="auth-meta" style="margin-top: 0.5rem; text-align: center;">
-              Already have an account? <span style="color: #2563eb; cursor: pointer;" class="auth-switch-signin">Sign in</span>
+              Already have an account?
+              <span style="color:#2563eb;cursor:pointer;" class="auth-switch-signin">Sign in</span>
             </p>
           </form>
         </div>
@@ -229,7 +248,49 @@
     </div>
 
     <script src="script.js"></script>
+
+    <!-- PROJECT LOGIC (Frontend Only) -->
+    <script>
+      if (!localStorage.getItem("userRole")) {
+        localStorage.setItem("userRole", "admin");
+      }
+
+      const role = localStorage.getItem("userRole");
+      if (role === "admin" || role === "alumni") {
+        document.getElementById("addProjectSection").style.display = "block";
+      }
+
+      let projects = JSON.parse(localStorage.getItem("dynamicProjects")) || [];
+
+      function addProject() {
+        const title = document.getElementById("projTitle").value.trim();
+        const desc = document.getElementById("projDesc").value.trim();
+
+        if (!title || !desc) {
+          alert("Please fill all fields");
+          return;
+        }
+
+        projects.push({ title, desc });
+        localStorage.setItem("dynamicProjects", JSON.stringify(projects));
+
+        document.getElementById("projTitle").value = "";
+        document.getElementById("projDesc").value = "";
+
+        renderProjects();
+      }
+
+      function renderProjects() {
+        const container = document.getElementById("projectsContainer");
+        projects.forEach(p => {
+          const card = document.createElement("div");
+          card.className = "about-card";
+          card.innerHTML = `<h3>${p.title}</h3><p>${p.desc}</p>`;
+          container.appendChild(card);
+        });
+      }
+
+      renderProjects();
+    </script>
   </body>
 </html>
-
-
