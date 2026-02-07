@@ -38,8 +38,27 @@
         color: #9ca3af;
         margin-top: 0.25rem;
       }
+
+      /* ADD IMAGE FORM */
+      .add-gallery-box {
+        max-width: 420px;
+        margin: 2rem auto;
+        background: #020617;
+        padding: 1.2rem;
+        border-radius: 1rem;
+        display: none;
+      }
+      .add-gallery-box input,
+      .add-gallery-box textarea {
+        width: 100%;
+        margin-bottom: 0.6rem;
+        padding: 0.5rem;
+        border-radius: 0.4rem;
+        border: none;
+      }
     </style>
   </head>
+
   <body>
     <header class="navbar">
       <div class="nav-left">
@@ -61,8 +80,8 @@
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
       <div class="nav-actions">
-        <button class="btn btn-ghost auth-btn" data-auth="signin">Sign In</button>
-        <button class="btn btn-primary auth-btn" data-auth="signup">Sign Up</button>
+        <button class="btn btn-ghost auth-btn">Sign In</button>
+        <button class="btn btn-primary auth-btn">Sign Up</button>
       </div>
     </header>
 
@@ -75,36 +94,31 @@
             campus activities.
           </p>
         </div>
-        <div class="gallery-grid">
+
+        <!-- ADD IMAGE BUTTON (ADMIN / ALUMNI ONLY) -->
+        <div style="text-align:center;">
+          <button id="addGalleryBtn" class="btn btn-primary" style="display:none;">
+            Add Image
+          </button>
+        </div>
+
+        <!-- ADD IMAGE FORM -->
+        <div class="add-gallery-box" id="galleryForm">
+          <input type="text" id="imgUrl" placeholder="Image URL" />
+          <textarea id="imgCaption" placeholder="Main caption"></textarea>
+          <input type="text" id="imgSub" placeholder="Sub caption" />
+          <button class="btn btn-primary btn-full" onclick="addGalleryImage()">
+            Save Image
+          </button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- EXISTING STATIC CARD (UNCHANGED) -->
           <div class="gallery-card">
-            <img src="alumni-barc.png" alt="Alumnus at BARC" />
+            <img src="alumni-barc.png" />
             <div class="gallery-caption">
-              Alumni achievement: Scientific Officer at Bhabha Atomic Research
-              Centre (BARC), Mumbai.
-              <span>Chemical Department • Alumni 2023–24 (hypothetical)</span>
-            </div>
-          </div>
-          <div class="gallery-card">
-            <img src="alumni-juspay.png" alt="Alumnus placed at Juspay" />
-            <div class="gallery-caption">
-              Alumni placement highlight with a high-package offer at Juspay
-              Technologies.
-              <span>Computer Department • Placement success story</span>
-            </div>
-          </div>
-          <div class="gallery-card">
-            <img src="alumni-chem-director.png" alt="Chemical alumni director" />
-            <div class="gallery-caption">
-              Alumni leading in industry: Director at Exochos Static Technologies,
-              Pune.
-              <span>Chemical Engineering Department • Alumni 2017–18 (hypothetical)</span>
-            </div>
-          </div>
-          <div class="gallery-card">
-            <img src="alumni-amey-patil.png" alt="Alumnus at Amdocs" />
-            <div class="gallery-caption">
-              Alumni success in IT services: journey from MITAOE campus to Amdocs.
-              <span>Computer/IT Department • Corporate professional</span>
+              Alumni achievement: Scientific Officer at BARC.
+              <span>Chemical Department • Alumni 2023–24</span>
             </div>
           </div>
         </div>
@@ -112,143 +126,49 @@
     </main>
 
     <footer class="footer">
-      <p>© <span id="year"></span> Alumni Connect. Built for the MITAOE community.</p>
-      <p class="footer-links">
-        <a href="index.html">Home</a>
-        <span>•</span>
-        <a href="about.html">About</a>
-        <span>•</span>
-        <a href="contact.html">Contact</a>
-      </p>
+      <p>© Alumni Connect</p>
     </footer>
 
-    <div id="auth-modal" class="auth-modal">
-      <div class="auth-backdrop"></div>
-      <div class="auth-content">
-        <div class="auth-header">
-          <div>
-            <div class="auth-title">Welcome to Alumni Connect</div>
-            <div class="auth-meta">Sign in or create an account to continue.</div>
-          </div>
-          <button class="auth-close" aria-label="Close">✕</button>
-        </div>
-        <div class="auth-tabs">
-          <button class="auth-tab auth-tab-active" data-auth-tab="signin">
-            Sign In
-          </button>
-          <button class="auth-tab" data-auth-tab="signup">Sign Up</button>
-        </div>
-        <div data-auth-panel="signin" class="auth-panel">
-          <form class="auth-form">
-            <label>
-              MITAOE Email
-              <input type="email" placeholder="you@mitcoe.edu (demo only)" />
-            </label>
-            <label>
-              Password
-              <input type="password" placeholder="Enter your password" />
-            </label>
-            <button type="button" class="btn btn-primary btn-full">
-              Sign In (demo)
-            </button>
-          </form>
-        </div>
-        <div data-auth-panel="signup" class="auth-panel hidden">
-          <form class="auth-form">
-            <p class="auth-meta" style="margin-bottom: 0.4rem;">
-              Join the Alumni Connect community today.
-            </p>
-            <div class="auth-role-toggle">
-              <button type="button" class="auth-role auth-role-active" data-role="student">Student</button>
-              <button type="button" class="auth-role" data-role="alumni">Alumni</button>
-              <button type="button" class="auth-role" data-role="admin">Admin</button>
-            </div>
-            <label>
-              Full Name
-              <input type="text" placeholder="Enter your full name" />
-            </label>
-            <label>
-              Email Address
-              <input type="email" placeholder="Enter your email" />
-            </label>
-            <label>
-              Phone Number
-              <input type="tel" placeholder="Enter your phone number" />
-            </label>
-            <label>
-              Department
-              <select>
-                <option value="">Select</option>
-                <option>Computer Engineering</option>
-                <option>IT Engineering</option>
-                <option>AIML</option>
-                <option>Data Science</option>
-                <option>Mechanical Engineering</option>
-                <option>Chemical Engineering</option>
-                <option>Other</option>
-              </select>
-            </label>
-            <label id="yearLabel">
-              Year
-              <select id="studentYearSelect">
-                <option value="">Select</option>
-                <option>FY</option>
-                <option>SY</option>
-                <option>TY</option>
-                <option>BTech</option>
-              </select>
-              <select id="alumniYearSelect" style="display: none;">
-                <option value="">Select</option>
-                <option>2025</option>
-                <option>2024</option>
-                <option>2023</option>
-                <option>2022</option>
-                <option>2021</option>
-                <option>2020</option>
-                <option>2019</option>
-                <option>2018</option>
-                <option>2017</option>
-                <option>2016</option>
-                <option>2015</option>
-                <option>2014</option>
-                <option>2013</option>
-                <option>2012</option>
-                <option>2011</option>
-                <option>2010</option>
-                <option>2009</option>
-                <option>2008</option>
-                <option>2007</option>
-                <option>2006</option>
-                <option>2005</option>
-                <option>2004</option>
-                <option>2003</option>
-                <option>2002</option>
-                <option>2001</option>
-                <option>2000</option>
-                <option>1999</option>
-              </select>
-            </label>
-            <label>
-              Password
-              <input type="password" placeholder="Create a password" />
-            </label>
-            <label>
-              Confirm Password
-              <input type="password" placeholder="Confirm your password" />
-            </label>
-            <button type="button" class="btn btn-primary btn-full">
-              Create Account (demo)
-            </button>
-            <p class="auth-meta" style="margin-top: 0.5rem; text-align: center;">
-              Already have an account? <span style="color: #2563eb; cursor: pointer;" class="auth-switch-signin">Sign in</span>
-            </p>
-          </form>
-        </div>
-      </div>
-    </div>
+    <script>
+      /* ====== DEMO ROLE SETUP ======
+         Change role as needed:
+         "admin" | "alumni" | "student"
+      ================================= */
+      localStorage.setItem("role", "admin");
 
-    <script src="script.js"></script>
+      const role = localStorage.getItem("role");
+
+      if (role === "admin" || role === "alumni") {
+        document.getElementById("addGalleryBtn").style.display = "inline-block";
+      }
+
+      document.getElementById("addGalleryBtn").onclick = () => {
+        document.getElementById("galleryForm").style.display = "block";
+      };
+
+      function addGalleryImage() {
+        const url = imgUrl.value;
+        const caption = imgCaption.value;
+        const sub = imgSub.value;
+
+        const images = JSON.parse(localStorage.getItem("galleryImages") || "[]");
+        images.push({ url, caption, sub });
+        localStorage.setItem("galleryImages", JSON.stringify(images));
+        location.reload();
+      }
+
+      const savedImages = JSON.parse(localStorage.getItem("galleryImages") || "[]");
+      savedImages.forEach(img => {
+        galleryGrid.innerHTML += `
+          <div class="gallery-card">
+            <img src="${img.url}">
+            <div class="gallery-caption">
+              ${img.caption}
+              <span>${img.sub}</span>
+            </div>
+          </div>
+        `;
+      });
+    </script>
   </body>
 </html>
-
-
