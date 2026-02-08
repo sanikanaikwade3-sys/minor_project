@@ -296,6 +296,18 @@
         });
       }
 
+      document.getElementById("projectsContainer").addEventListener("contextmenu", function (e) {
+        const card = e.target.closest(".about-card");
+        if (!card) return;
+
+        const title = card.querySelector("h3")?.innerText;
+
+        if (title === "Placement Tracker Dashboard") {
+          e.preventDefault(); // stop browser menu
+          card.remove();      // remove project from UI
+        }
+      });
+
       renderProjects();
     </script>
   </body>
