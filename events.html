@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alumni Connect • Events</title>
+  <title>Alumni Connect • Events & Messages</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -11,19 +11,24 @@
     *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
     body{background:#f8fafc;color:#1e293b}
 
+    /* Navbar */
     .navbar{
       display:flex;justify-content:space-between;align-items:center;
       padding:1rem 2rem;background:#fff;border-bottom:1px solid #e5e7eb
     }
-    .nav-links a{
-      margin:0 0.8rem;text-decoration:none;color:#334155;font-weight:500
-    }
+    .nav-links a{margin:0 0.8rem;text-decoration:none;color:#334155;font-weight:500}
     .nav-link-active{color:#2563eb;border-bottom:2px solid #2563eb}
-    .btn{padding:0.5rem 1rem;border-radius:6px;border:none;cursor:pointer}
+    .btn{padding:0.5rem 1rem;border-radius:6px;border:none;cursor:pointer;font-weight:500}
     .btn-primary{background:#2563eb;color:#fff}
 
+    /* Sections */
     .section{padding:3rem 2rem;max-width:1200px;margin:auto}
-    .event-input{padding:0.7rem;border-radius:6px;border:1px solid #c7d2fe}
+    .section-header h2,.section-header h3{margin-bottom:0.5rem}
+
+    /* EVENTS */
+    .event-input{
+      padding:0.7rem;border-radius:6px;border:1px solid #c7d2fe;outline:none
+    }
     .events-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -34,7 +39,29 @@
       box-shadow:0 10px 25px rgba(0,0,0,0.05)
     }
     .event-meta{font-size:0.8rem;color:#475569}
-    footer{text-align:center;padding:1.5rem;background:#fff;margin-top:3rem}
+
+    /* ================= MESSAGE SECTION ================= */
+    .message-container{
+      display:grid;grid-template-columns:300px 1fr;height:520px;
+      background:#fff;border-radius:10px;overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.05)
+    }
+    .conversation-list{border-right:1px solid #e5e7eb;background:#f9fafb;overflow-y:auto}
+    .conversation{padding:1rem;cursor:pointer;border-bottom:1px solid #e5e7eb}
+    .conversation:hover,.conversation.active{background:#e0e7ff}
+    .conversation h4{font-size:0.95rem}
+    .conversation span{font-size:0.75rem;color:#475569}
+    .chat-area{display:flex;flex-direction:column}
+    .chat-header{padding:1rem;border-bottom:1px solid #e5e7eb;font-weight:600}
+    .chat-messages{flex:1;padding:1rem;overflow-y:auto;background:#f8fafc}
+    .message{margin-bottom:0.8rem;max-width:70%;padding:0.6rem 0.8rem;border-radius:8px;font-size:0.85rem}
+    .message.student{background:#e0f2fe;align-self:flex-start}
+    .message.alumni{background:#dcfce7;align-self:flex-end}
+    .chat-input{display:flex;padding:0.8rem;border-top:1px solid #e5e7eb}
+    .chat-input input{flex:1;padding:0.6rem;border-radius:6px;border:1px solid #cbd5f5}
+    .chat-input button{margin-left:0.5rem}
+
+    .footer{text-align:center;padding:1.5rem;background:#fff;border-top:1px solid #e5e7eb;margin-top:3rem}
   </style>
 </head>
 
@@ -43,39 +70,69 @@
 <header class="navbar">
   <strong>Alumni Connect</strong>
   <nav class="nav-links">
-    <a class="nav-link-active" href="events.html">Events</a>
-    <a href="messages.html">Messages</a>
+    <a class="nav-link-active">Events</a>
   </nav>
   <button class="btn btn-primary">Sign In</button>
 </header>
 
+<main>
+
+<!-- ================= EVENTS SECTION ================= -->
 <section class="section">
-  <h2>Events & Webinars</h2>
-  <p>Learn from alumni leaders and industry experts.</p>
+  <div class="section-header">
+    <h2>Events & Webinars</h2>
+    <p>
+      Step into opportunities that shape your future.<br>
+      Learn from alumni leaders and industry experts.<br>
+      Stay inspired, stay prepared, and grow together.
+    </p>
+  </div>
 
   <!-- ADMIN ADD EVENT -->
-  <div style="background:#fff;padding:2rem;border-radius:10px;margin-top:2rem">
+  <div style="background:#fff;padding:2rem;border-radius:10px;margin-top:2rem;
+              box-shadow:0 10px 30px rgba(0,0,0,0.05);">
     <h3>Admin • Add New Event</h3>
-    <div style="display:grid;gap:1rem;margin-top:1rem">
+
+    <div style="display:grid;gap:1rem;margin-top:1rem;">
       <input id="eTitle" class="event-input" placeholder="Event Title">
-      <input id="eIcon" class="event-input" placeholder="Emoji Icon">
+      <input id="eIcon" class="event-input" placeholder="Emoji Icon ( 🎤 🚀 💻 )">
       <input id="eDate" class="event-input" type="date">
       <input id="eTime" class="event-input" type="time">
-      <input id="eCategory" class="event-input" placeholder="Category">
-      <textarea id="eDesc" class="event-input" placeholder="Description"></textarea>
+
+      <select id="eCategory" class="event-input">
+        <option value="">Select Category</option>
+        <option>Workshop</option>
+        <option>Webinar</option>
+        <option>Placement</option>
+        <option>Alumni Talk</option>
+        <option>Industry</option>
+        <option>Meetup</option>
+      </select>
+
+      <textarea id="eDesc" class="event-input" placeholder="Event Description"></textarea>
       <button class="btn btn-primary" onclick="addEvent()">Add Event</button>
     </div>
   </div>
 
+  <!-- EVENTS DISPLAY -->
   <div class="events-grid" id="eventsGrid"></div>
 </section>
 
-<footer>© 2026 Alumni Connect</footer>
+
+</main>
+
+<footer class="footer">
+  © 2026 Alumni Connect • MITAOE
+</footer>
 
 <script>
   const events=[
-    {icon:"🎤",title:"Alumni Talk: AI",category:"Alumni Talk",date:"2026-02-10",time:"11:00",desc:"Career guidance"},
-    {icon:"💻",title:"Web Dev Workshop",category:"Workshop",date:"2026-02-20",time:"10:00",desc:"Hands-on coding"}
+    {icon:"🎤",title:"Alumni Talk: Career in AI",category:"Alumni Talk",date:"2026-02-10",time:"11:00",desc:"Guidance from AI professionals."},
+    {icon:"🚀",title:"Entrepreneurship Bootcamp",category:"Workshop",date:"2026-02-15",time:"10:00",desc:"Startup ideas & funding."},
+    {icon:"💼",title:"Placement Readiness Webinar",category:"Placement",date:"2026-02-20",time:"14:00",desc:"Interview preparation."},
+    {icon:"💻",title:"Web Development Workshop",category:"Workshop",date:"2026-02-25",time:"10:30",desc:"Hands-on development."},
+    {icon:"🤝",title:"Industry Connect Day",category:"Industry",date:"2026-03-01",time:"11:00",desc:"Industry networking."},
+    {icon:"📝",title:"Resume Building Workshop",category:"Webinar",date:"2026-03-05",time:"12:00",desc:"ATS-friendly resumes."}
   ];
 
   function renderEvents(){
@@ -87,7 +144,7 @@
           <h4>${e.title}</h4>
           <div class="event-meta">${e.category}</div>
           <div class="event-meta">📅 ${e.date} ⏰ ${e.time}</div>
-          <p>${e.desc}</p>
+          <p style="font-size:0.85rem;margin-top:0.5rem">${e.desc}</p>
         </div>`;
     });
   }
@@ -100,8 +157,14 @@
     renderEvents();
   }
 
+  function sendMessage(){
+    if(!messageInput.value.trim())return;
+    chatMessages.innerHTML+=`<div class="message student">${messageInput.value}</div>`;
+    messageInput.value="";
+  }
+
   renderEvents();
 </script>
 
 </body>
-</html>
+</html>but why you are make message section in under the event section you can make message section in first page of website not in evenets please give only for event section and give separed full code for message code message section as per my instruction .
