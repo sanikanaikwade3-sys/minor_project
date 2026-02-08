@@ -281,11 +281,16 @@
         renderProjects();
       }
 
-      function renderProjects() {
+    function renderProjects() {
         const container = document.getElementById("projectsContainer");
+
+        // remove previously added dynamic projects only
+        const old = container.querySelectorAll(".dynamic-project");
+        old.forEach(e => e.remove());
+
         projects.forEach(p => {
           const card = document.createElement("div");
-          card.className = "about-card";
+          card.className = "about-card dynamic-project";
           card.innerHTML = `<h3>${p.title}</h3><p>${p.desc}</p>`;
           container.appendChild(card);
         });
