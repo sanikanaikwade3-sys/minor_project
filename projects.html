@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -124,7 +125,126 @@
     <div id="auth-modal" class="auth-modal">
       <div class="auth-backdrop"></div>
       <div class="auth-content">
-        <!-- unchanged auth modal -->
+        <div class="auth-header">
+          <div>
+            <div class="auth-title">Welcome to Alumni Connect</div>
+            <div class="auth-meta">Sign in or create an account to continue.</div>
+          </div>
+          <button class="auth-close" aria-label="Close">✕</button>
+        </div>
+        <div class="auth-tabs">
+          <button class="auth-tab auth-tab-active" data-auth-tab="signin">
+            Sign In
+          </button>
+          <button class="auth-tab" data-auth-tab="signup">Sign Up</button>
+        </div>
+        <div data-auth-panel="signin" class="auth-panel">
+          <form class="auth-form">
+            <label>
+              MITAOE Email
+              <input type="email" placeholder="you@mitcoe.edu (demo only)" />
+            </label>
+            <label>
+              Password
+              <input type="password" placeholder="Enter your password" />
+            </label>
+            <button type="button" class="btn btn-primary btn-full">
+              Sign In (demo)
+            </button>
+          </form>
+        </div>
+        <div data-auth-panel="signup" class="auth-panel hidden">
+          <form class="auth-form">
+            <p class="auth-meta" style="margin-bottom: 0.4rem;">
+              Join the Alumni Connect community today.
+            </p>
+            <div class="auth-role-toggle">
+              <button type="button" class="auth-role auth-role-active" data-role="student">Student</button>
+              <button type="button" class="auth-role" data-role="alumni">Alumni</button>
+              <button type="button" class="auth-role" data-role="admin">Admin</button>
+            </div>
+            <label>
+              Full Name
+              <input type="text" placeholder="Enter your full name" />
+            </label>
+            <label>
+              Email Address
+              <input type="email" placeholder="Enter your email" />
+            </label>
+            <label>
+              Phone Number
+              <input type="tel" placeholder="Enter your phone number" />
+            </label>
+            <label>
+              Department
+              <select>
+                <option value="">Select</option>
+                <option>Computer Engineering</option>
+                <option>IT Engineering</option>
+                <option>AIML</option>
+                <option>Data Science</option>
+                <option>Mechanical Engineering</option>
+                <option>Chemical Engineering</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label id="yearLabel">
+              Year
+              <select id="studentYearSelect">
+                <option value="">Select</option>
+                <option>FY</option>
+                <option>SY</option>
+                <option>TY</option>
+                <option>BTech</option>
+              </select>
+              <select id="alumniYearSelect" style="display: none;">
+                <option value="">Select</option>
+                <option>2025</option>
+                <option>2024</option>
+                <option>2023</option>
+                <option>2022</option>
+                <option>2021</option>
+                <option>2020</option>
+                <option>2019</option>
+                <option>2018</option>
+                <option>2017</option>
+                <option>2016</option>
+                <option>2015</option>
+                <option>2014</option>
+                <option>2013</option>
+                <option>2012</option>
+                <option>2011</option>
+                <option>2010</option>
+                <option>2009</option>
+                <option>2008</option>
+                <option>2007</option>
+                <option>2006</option>
+                <option>2005</option>
+                <option>2004</option>
+                <option>2003</option>
+                <option>2002</option>
+                <option>2001</option>
+                <option>2000</option>
+                <option>1999</option>
+              </select>
+            </label>
+            <label>
+              Password
+              <input type="password" placeholder="Create a password" />
+            </label>
+            <label>
+              Confirm Password
+              <input type="password" placeholder="Confirm your password" />
+            </label>
+            <button type="button" class="btn btn-primary btn-full">
+              Create Account (demo)
+            </button>
+            <p class="auth-meta" style="margin-top: 0.5rem; text-align: center;">
+              Already have an account?
+              <span style="color:#2563eb;cursor:pointer;" class="auth-switch-signin">Sign in</span>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
 
@@ -161,22 +281,15 @@
         renderProjects();
       }
 
-      /* ===== ONLY ADDITION BELOW (no change to your logic) ===== */
       function renderProjects() {
         const container = document.getElementById("projectsContainer");
-
-        // remove previously added dynamic projects only
-        const old = container.querySelectorAll(".dynamic-project");
-        old.forEach(e => e.remove());
-
         projects.forEach(p => {
           const card = document.createElement("div");
-          card.className = "about-card dynamic-project";
+          card.className = "about-card";
           card.innerHTML = `<h3>${p.title}</h3><p>${p.desc}</p>`;
           container.appendChild(card);
         });
       }
-      /* ===== END ADDITION ===== */
 
       renderProjects();
     </script>
