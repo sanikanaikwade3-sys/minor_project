@@ -281,32 +281,15 @@
         renderProjects();
       }
 
-    function renderProjects() {
+      function renderProjects() {
         const container = document.getElementById("projectsContainer");
-
-        // remove previously added dynamic projects only
-        const old = container.querySelectorAll(".dynamic-project");
-        old.forEach(e => e.remove());
-
         projects.forEach(p => {
           const card = document.createElement("div");
-          card.className = "about-card dynamic-project";
+          card.className = "about-card";
           card.innerHTML = `<h3>${p.title}</h3><p>${p.desc}</p>`;
           container.appendChild(card);
         });
       }
-
-      document.getElementById("projectsContainer").addEventListener("contextmenu", function (e) {
-        const card = e.target.closest(".about-card");
-        if (!card) return;
-
-        const title = card.querySelector("h3")?.innerText;
-
-        if (title === "Placement Tracker Dashboard") {
-          e.preventDefault(); // stop browser menu
-          card.remove();      // remove project from UI
-        }
-      });
 
       renderProjects();
     </script>
