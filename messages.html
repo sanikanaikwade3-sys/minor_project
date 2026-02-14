@@ -136,20 +136,6 @@ body{
   margin-left:auto;
 }
 
-/* QUERY TYPE */
-.query-type{
-  padding:10px 20px;
-  border-top:1px solid #e2e8f0;
-  background:#ffffff;
-}
-
-.query-type select{
-  width:100%;
-  padding:8px;
-  border-radius:6px;
-  border:1px solid #cbd5e1;
-}
-
 /* INPUT */
 .chat-input{
   display:flex;
@@ -237,17 +223,6 @@ body{
 
     <div class="chat-messages" id="chatBox"></div>
 
-    <div class="query-type">
-      <select id="queryType">
-        <option value="">Select Query Type</option>
-        <option>Placement Guidance</option>
-        <option>Project Help</option>
-        <option>Internship Advice</option>
-        <option>Higher Studies</option>
-        <option>Career Advice</option>
-      </select>
-    </div>
-
     <div class="chat-input">
       <input type="text" id="messageInput" placeholder="Type your message...">
       <button onclick="sendMessage()">Send</button>
@@ -270,18 +245,12 @@ function selectAlumni(element,name,details){
 function sendMessage(){
   const input=document.getElementById("messageInput");
   const chatBox=document.getElementById("chatBox");
-  const query=document.getElementById("queryType").value;
-
-  if(query===""){
-    alert("Please select query type.");
-    return;
-  }
 
   if(input.value.trim()==="") return;
 
   const msg=document.createElement("div");
   msg.classList.add("message","student");
-  msg.innerHTML="<strong>"+query+":</strong><br>"+input.value;
+  msg.innerHTML=input.value;
 
   chatBox.appendChild(msg);
   chatBox.scrollTop=chatBox.scrollHeight;
