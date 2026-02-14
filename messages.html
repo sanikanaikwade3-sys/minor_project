@@ -1,61 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Messages • Alumni Connect</title>
-  <link rel="stylesheet" href="styles.css"/>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body { background:#020617; color:#e5e7eb; }
-    .chat-layout {
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8fafc;
+      margin: 0;
+    }
+
+    .message-wrapper {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       display: grid;
       grid-template-columns: 280px 1fr;
-      height: calc(100vh - 80px);
+      height: 500px;
+      overflow: hidden;
     }
-    .chat-users {
-      border-right: 1px solid #1e293b;
-      padding: 1rem;
-      overflow-y: auto;
-    }
-    .chat-user {
-      padding: 0.7rem;
-      border-radius: 0.6rem;
-      cursor: pointer;
-      margin-bottom: 0.4rem;
-      background:#020617;
-    }
-    .chat-user:hover { background:#0f172a; }
 
-    .chat-box {
+    .conversation-list {
+      border-right: 1px solid #e5e7eb;
+      background: #f9fafb;
+    }
+
+    .conversation {
+      padding: 15px;
+      border-bottom: 1px solid #e5e7eb;
+      cursor: pointer;
+    }
+
+    .conversation.active {
+      background: #e0e7ff;
+      font-weight: 500;
+    }
+
+    .chat-area {
       display: flex;
       flex-direction: column;
-      padding: 1rem;
     }
-    .messages {
-      flex: 1;
-      overflow-y: auto;
-      margin-bottom: 1rem;
-    }
-    .msg {
-      margin-bottom: 0.6rem;
-      max-width: 70%;
-      padding: 0.6rem 0.8rem;
-      border-radius: 0.6rem;
-      font-size: 0.85rem;
-    }
-    .sent { background:#2563eb; margin-left:auto; }
-    .received { background:#1e293b; }
 
-    .msg-input {
-      display: flex;
-      gap: 0.5rem;
+    .chat-header {
+      padding: 15px;
+      border-bottom: 1px solid #e5e7eb;
+      font-weight: 600;
     }
-    .msg-input input {
+
+    .chat-messages {
       flex: 1;
-      padding: 0.6rem;
-      border-radius: 0.4rem;
+      padding: 15px;
+      overflow-y: auto;
+      background: #f8fafc;
+    }
+
+    .message {
+      max-width: 70%;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .student {
+      background: #e0f2fe;
+    }
+
+    .alumni {
+      background: #dcfce7;
+      margin-left: auto;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #cbd5f5;
+      outline: none;
+    }
+
+    .chat-input button {
+      margin-left: 8px;
+      padding: 8px 14px;
       border: none;
+      background: #2563eb;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .chat-input button:hover {
+      background: #1e40af;
     }
   </style>
 </head>
@@ -63,87 +114,55 @@
 <body>
 
 <header class="navbar">
-  <div class="brand">
-    <span class="brand-title">Alumni Connect</span>
-  </div>
-</header>
-
-<main class="chat-layout">
-
-  <!-- USERS LIST -->
-  <div class="chat-users" id="userList">
-    <h3>Chats</h3>
-  </div>
-
-  <!-- CHAT AREA -->
-  <div class="chat-box">
-    <h3 id="chatWith">Select a user</h3>
-    <div class="messages" id="messages"></div>
-
-    <div class="msg-input">
-      <input type="text" id="msgText" placeholder="Type your message..."/>
-      <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+  <div class="nav-left">
+    <div class="brand">
+      <span class="brand-title">Alumni Connect</span>
     </div>
   </div>
 
-</main>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="messages.html" class="nav-link-active">Messages</a>
+  </nav>
+</header>
+
+<div class="message-wrapper">
+
+  <div class="conversation-list">
+    <div class="conversation active">Rahul Patil (Alumni)</div>
+    <div class="conversation">Neha Kulkarni (Student)</div>
+  </div>
+
+  <div class="chat-area">
+    <div class="chat-header">Rahul Patil</div>
+
+    <div class="chat-messages" id="chatBox">
+      <div class="message student">Hello sir, can you guide me?</div>
+      <div class="message alumni">Sure, tell me your interests.</div>
+    </div>
+
+    <div class="chat-input">
+      <input type="text" id="messageInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+</div>
 
 <script>
-  /* ===== DEMO LOGIN USER ===== */
-  const currentUser = {
-    id: "student1",
-    name: "Student (You)",
-    role: "student"
-  };
-
-  /* ===== OTHER USERS ===== */
-  const users = [
-    { id:"alumni1", name:"Alumni – Software Engineer" },
-    { id:"alumni2", name:"Alumni – Startup Founder" },
-    { id:"student2", name:"Student – TY Comp" }
-  ];
-
-  let activeUser = null;
-
-  /* LOAD USERS */
-  const userList = document.getElementById("userList");
-  users.forEach(u => {
-    const div = document.createElement("div");
-    div.className = "chat-user";
-    div.innerText = u.name;
-    div.onclick = () => openChat(u);
-    userList.appendChild(div);
-  });
-
-  function openChat(user) {
-    activeUser = user;
-    chatWith.innerText = "Chat with " + user.name;
-    loadMessages();
-  }
-
-  function getChatKey() {
-    return "chat_" + currentUser.id + "_" + activeUser.id;
-  }
-
-  function loadMessages() {
-    messages.innerHTML = "";
-    const chat = JSON.parse(localStorage.getItem(getChatKey()) || "[]");
-    chat.forEach(m => {
-      const div = document.createElement("div");
-      div.className = "msg " + (m.from === currentUser.id ? "sent" : "received");
-      div.innerText = m.text;
-      messages.appendChild(div);
-    });
-  }
-
   function sendMessage() {
-    if (!activeUser || !msgText.value) return;
+    const input = document.getElementById("messageInput");
+    const chatBox = document.getElementById("chatBox");
 
-    const chat = JSON.parse(localStorage.getItem(getChatKey()) || "[]");
-    chat.push({ from: currentUser.id, text: msgText.value });
-    localStorage.setItem(getChatKey(), JSON.stringify(chat));
-    msgText.value = "";
-    loadMessages();
+    if (input.value.trim() === "") return;
+
+    const newMessage = document.createElement("div");
+    newMessage.classList.add("message", "student");
+    newMessage.textContent = input.value;
+
+    chatBox.appendChild(newMessage);
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
   }
 </script>
 
