@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Messages | Alumni Connect</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -26,12 +26,10 @@ body{
   justify-content:space-between;
   align-items:center;
   padding:18px 40px;
-  background:#ffffff;
   border-bottom:1px solid #e2e8f0;
 }
 
 .navbar h2{
-  font-weight:600;
   color:#2563eb;
 }
 
@@ -46,20 +44,19 @@ body{
   color:#2563eb;
 }
 
-/* MAIN LAYOUT */
+/* MAIN CONTAINER */
 .container{
   max-width:1200px;
   margin:40px auto;
-  background:#ffffff;
-  border-radius:14px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.08);
   display:grid;
-  grid-template-columns:300px 1fr;
-  height:550px;
+  grid-template-columns:320px 1fr;
+  border:1px solid #e2e8f0;
+  border-radius:12px;
   overflow:hidden;
+  height:600px;
 }
 
-/* LEFT PANEL */
+/* SIDEBAR */
 .sidebar{
   border-right:1px solid #e2e8f0;
   background:#f8fafc;
@@ -71,20 +68,29 @@ body{
   border-bottom:1px solid #e2e8f0;
 }
 
-.user{
-  padding:18px 20px;
+.alumni{
+  padding:18px;
   border-bottom:1px solid #e2e8f0;
   cursor:pointer;
   transition:0.2s;
 }
 
-.user:hover{
-  background:#e0e7ff;
+.alumni:hover{
+  background:#e0f2fe;
 }
 
-.user.active{
+.alumni.active{
   background:#dbeafe;
-  font-weight:500;
+}
+
+.alumni h4{
+  font-size:14px;
+  margin-bottom:4px;
+}
+
+.alumni p{
+  font-size:12px;
+  color:#64748b;
 }
 
 /* CHAT AREA */
@@ -100,11 +106,17 @@ body{
   background:#ffffff;
 }
 
+.chat-details{
+  font-size:13px;
+  color:#64748b;
+  margin-top:4px;
+}
+
 .chat-messages{
   flex:1;
   padding:20px;
-  overflow-y:auto;
   background:#f9fafb;
+  overflow-y:auto;
 }
 
 .message{
@@ -119,11 +131,26 @@ body{
   background:#e0f2fe;
 }
 
-.alumni{
+.alumni-msg{
   background:#dcfce7;
   margin-left:auto;
 }
 
+/* QUERY TYPE */
+.query-type{
+  padding:10px 20px;
+  border-top:1px solid #e2e8f0;
+  background:#ffffff;
+}
+
+.query-type select{
+  width:100%;
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #cbd5e1;
+}
+
+/* INPUT */
 .chat-input{
   display:flex;
   padding:15px 20px;
@@ -136,7 +163,6 @@ body{
   padding:10px;
   border-radius:8px;
   border:1px solid #cbd5e1;
-  outline:none;
 }
 
 .chat-input button{
@@ -179,43 +205,85 @@ body{
 
 <div class="container">
 
-  <!-- Sidebar -->
+  <!-- SIDEBAR -->
   <div class="sidebar">
-    <div class="sidebar-header">Conversations</div>
-    <div class="user active">Rahul Patil (Alumni)</div>
-    <div class="user">Neha Kulkarni (Student)</div>
-    <div class="user">Amit Sharma (Alumni)</div>
+    <div class="sidebar-header">Available Alumni</div>
+
+    <div class="alumni active" onclick="selectAlumni(this,'Rahul Patil','Software Engineer at TCS | Placement Expert')">
+      <h4>Rahul Patil</h4>
+      <p>TCS • Batch 2020 • Placement Guidance</p>
+    </div>
+
+    <div class="alumni" onclick="selectAlumni(this,'Neha Kulkarni','MS Computer Science | USA')">
+      <h4>Neha Kulkarni</h4>
+      <p>Higher Studies • USA • 2019</p>
+    </div>
+
+    <div class="alumni" onclick="selectAlumni(this,'Amit Sharma','Founder - AI Startup')">
+      <h4>Amit Sharma</h4>
+      <p>Startup & Projects • 2018</p>
+    </div>
   </div>
 
-  <!-- Chat -->
+  <!-- CHAT AREA -->
   <div class="chat">
-    <div class="chat-header">Rahul Patil</div>
 
-    <div class="chat-messages" id="chatBox">
-      <div class="message student">Hello sir, I need guidance about placements.</div>
-      <div class="message alumni">Sure. Which domain are you preparing for?</div>
+    <div class="chat-header" id="chatHeader">
+      Rahul Patil
+      <div class="chat-details" id="chatDetails">
+        Software Engineer at TCS | Placement Expert
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatBox"></div>
+
+    <div class="query-type">
+      <select id="queryType">
+        <option value="">Select Query Type</option>
+        <option>Placement Guidance</option>
+        <option>Project Help</option>
+        <option>Internship Advice</option>
+        <option>Higher Studies</option>
+        <option>Career Advice</option>
+      </select>
     </div>
 
     <div class="chat-input">
       <input type="text" id="messageInput" placeholder="Type your message...">
       <button onclick="sendMessage()">Send</button>
     </div>
+
   </div>
 
 </div>
 
 <script>
+function selectAlumni(element,name,details){
+  document.querySelectorAll(".alumni").forEach(a=>a.classList.remove("active"));
+  element.classList.add("active");
+
+  document.getElementById("chatHeader").childNodes[0].nodeValue=name;
+  document.getElementById("chatDetails").innerText=details;
+  document.getElementById("chatBox").innerHTML="";
+}
+
 function sendMessage(){
   const input=document.getElementById("messageInput");
   const chatBox=document.getElementById("chatBox");
+  const query=document.getElementById("queryType").value;
+
+  if(query===""){
+    alert("Please select query type.");
+    return;
+  }
 
   if(input.value.trim()==="") return;
 
-  const newMsg=document.createElement("div");
-  newMsg.classList.add("message","student");
-  newMsg.textContent=input.value;
+  const msg=document.createElement("div");
+  msg.classList.add("message","student");
+  msg.innerHTML="<strong>"+query+":</strong><br>"+input.value;
 
-  chatBox.appendChild(newMsg);
+  chatBox.appendChild(msg);
   chatBox.scrollTop=chatBox.scrollHeight;
 
   input.value="";
