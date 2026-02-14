@@ -1,185 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alumni Connect • Events</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alumni Connect • Events</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
-    body{background:#f8fafc;color:#1e293b}
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
+body{background:#f8fafc;color:#1e293b}
 
-    /* Navbar */
-    .navbar{
-      display:flex;justify-content:space-between;align-items:center;
-      padding:1rem 2rem;background:#fff;border-bottom:1px solid #e5e7eb
-    }
-    .nav-links a{margin:0 0.8rem;text-decoration:none;color:#334155;font-weight:500}
-    .nav-link-active{color:#2563eb;border-bottom:2px solid #2563eb}
-    .btn{padding:0.5rem 1rem;border-radius:6px;border:none;cursor:pointer;font-weight:500}
-    .btn-primary{background:#2563eb;color:#fff}
+/* Navbar */
+.navbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 2rem;background:#fff;border-bottom:1px solid #e5e7eb
+}
+.nav-links a{margin:0 0.8rem;text-decoration:none;color:#334155;font-weight:500}
+.nav-link-active{color:#2563eb;border-bottom:2px solid #2563eb}
+.btn{padding:0.5rem 1rem;border-radius:6px;border:none;cursor:pointer;font-weight:500}
+.btn-primary{background:#2563eb;color:#fff}
 
-    /* Sections */
-    .section{padding:3rem 2rem;max-width:1200px;margin:auto}
-    .section-header h2{margin-bottom:0.5rem}
+/* Sections */
+.section{padding:3rem 2rem;max-width:1200px;margin:auto}
+.section-header h2{margin-bottom:0.5rem}
 
-    /* Events */
-    .event-input{
-      padding:0.7rem;border-radius:6px;border:1px solid #c7d2fe;outline:none
-    }
-    .events-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:1.5rem;margin-top:2rem
-    }
-    .event-card{
-      background:#fff;padding:1.2rem;border-radius:10px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.05);
-      cursor:pointer
-    }
-    .event-meta{font-size:0.8rem;color:#475569}
+/* Events */
+.event-input{
+  padding:0.7rem;border-radius:6px;border:1px solid #c7d2fe;outline:none
+}
+.events-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.5rem;margin-top:2rem
+}
+.event-card{
+  background:#fff;padding:1.2rem;border-radius:10px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+  cursor:pointer
+}
+.event-meta{font-size:0.8rem;color:#475569}
 
-    .footer{text-align:center;padding:1.5rem;background:#fff;border-top:1px solid #e5e7eb;margin-top:3rem}
-  </style>
+.footer{text-align:center;padding:1.5rem;background:#fff;border-top:1px solid #e5e7eb;margin-top:3rem}
+</style>
 </head>
 
 <body>
 
 <header class="navbar">
-  <strong>Alumni Connect</strong>
-  <nav class="nav-links">
-    <a class="nav-link-active">Events</a>
-  </nav>
-  <button class="btn btn-primary">Sign In</button>
+<strong>Alumni Connect</strong>
+<nav class="nav-links">
+  <a class="nav-link-active">Events</a>
+</nav>
+<button class="btn btn-primary">Sign In</button>
 </header>
 
 <main>
 
 <section class="section">
-  <div class="section-header">
-    <h2>Events & Webinars</h2>
-    <p>Learn, connect, and grow with alumni & industry experts.</p>
+<div class="section-header">
+  <h2>Events & Webinars</h2>
+  <p>Learn, connect, and grow with alumni & industry experts.</p>
+</div>
+
+<!-- ADMIN SECTION -->
+<div id="adminSection" style="
+  background:#fff;padding:2rem;border-radius:10px;margin-top:2rem;
+  box-shadow:0 10px 30px rgba(0,0,0,0.05);display:none;">
+  <h3>Admin • Add New Event</h3>
+
+  <div style="display:grid;gap:1rem;margin-top:1rem;">
+    <input id="eTitle" class="event-input" placeholder="Event Title">
+    <input id="eIcon" class="event-input" placeholder="Emoji Icon ( 🎤 🚀 💻 )">
+    <input id="eDate" class="event-input" type="date">
+    <input id="eTime" class="event-input" type="time">
+
+    <select id="eCategory" class="event-input">
+      <option value="">Select Category</option>
+      <option>Workshop</option>
+      <option>Webinar</option>
+      <option>Placement</option>
+      <option>Alumni Talk</option>
+      <option>Industry</option>
+      <option>Meetup</option>
+    </select>
+
+    <textarea id="eDesc" class="event-input" placeholder="Event Description"></textarea>
+    <button class="btn btn-primary" onclick="addEvent()">Add Event</button>
   </div>
+</div>
 
-  <!-- ================= ADMIN ADD EVENT ================= -->
-  <div id="adminSection" style="
-      background:#fff;padding:2rem;border-radius:10px;margin-top:2rem;
-      box-shadow:0 10px 30px rgba(0,0,0,0.05);">
-    <h3>Admin • Add New Event</h3>
-
-    <div style="display:grid;gap:1rem;margin-top:1rem;">
-      <input id="eTitle" class="event-input" placeholder="Event Title">
-      <input id="eIcon" class="event-input" placeholder="Emoji Icon ( 🎤 🚀 💻 )">
-      <input id="eDate" class="event-input" type="date">
-      <input id="eTime" class="event-input" type="time">
-
-      <select id="eCategory" class="event-input">
-        <option value="">Select Category</option>
-        <option>Workshop</option>
-        <option>Webinar</option>
-        <option>Placement</option>
-        <option>Alumni Talk</option>
-        <option>Industry</option>
-        <option>Meetup</option>
-      </select>
-
-      <textarea id="eDesc" class="event-input" placeholder="Event Description"></textarea>
-      <button class="btn btn-primary" onclick="addEvent()">Add Event</button>
-    </div>
-  </div>
-
-  <!-- ================= EVENTS DISPLAY ================= -->
-  <div class="events-grid" id="eventsGrid"></div>
+<!-- EVENTS DISPLAY -->
+<div class="events-grid" id="eventsGrid"></div>
 </section>
 
 </main>
 
 <footer class="footer">
-  © 2026 Alumni Connect • MITAOE
+© 2026 Alumni Connect • MITAOE
 </footer>
 
-<!-- ================= EVENT MODAL ================= -->
+<!-- EVENT MODAL -->
 <div id="eventModal" style="
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);
-  justify-content:center;align-items:center;z-index:1000;">
-  <div style="background:#fff;padding:2rem;border-radius:10px;max-width:500px;width:90%;position:relative;">
-    <span onclick="closeEvent()" style="position:absolute;top:10px;right:15px;font-size:1.5rem;cursor:pointer;">×</span>
-    <h3 id="mTitle"></h3>
-    <p id="mCategory"></p>
-    <p id="mDate"></p>
-    <p id="mDesc"></p>
-  </div>
+display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);
+justify-content:center;align-items:center;z-index:1000;">
+<div style="background:#fff;padding:2rem;border-radius:10px;max-width:500px;width:90%;position:relative;">
+  <span onclick="closeEvent()" style="position:absolute;top:10px;right:15px;font-size:1.5rem;cursor:pointer;">×</span>
+  <h3 id="mTitle"></h3>
+  <p id="mCategory"></p>
+  <p id="mDate"></p>
+  <p id="mDesc"></p>
+</div>
 </div>
 
 <script>
-  /* ================= USER ROLE =================
-     Change this value to test:
-     "admin" | "student" | "alumni"
-  */
-  const userRole = "student";
 
-  /* ================= EVENTS DATA ================= */
-  const events = [
-    {icon:"🎤",title:"Alumni Talk: Career in AI",category:"Alumni Talk",date:"2026-02-10",time:"11:00",desc:"Guidance from AI professionals."},
-    {icon:"🚀",title:"Entrepreneurship Bootcamp",category:"Workshop",date:"2026-02-15",time:"10:00",desc:"Startup ideas & funding."},
-    {icon:"💼",title:"Placement Readiness Webinar",category:"Placement",date:"2026-02-20",time:"14:00",desc:"Interview preparation."}
-  ];
+/* ================= ROLE CONFIG ================= */
+const userRole = "admin"; 
+// Change to "student" or "alumni" to test
 
-  /* ================= ROLE CHECK ================= */
-  window.onload = function(){
-    if(userRole !== "admin"){
-      document.getElementById("adminSection").style.display = "none";
-    }
-    renderEvents();
-  };
+/* ================= EVENTS DATA ================= */
+const events = [
+{icon:"🎤",title:"Alumni Talk: Career in AI",category:"Alumni Talk",date:"2026-02-10",time:"11:00",desc:"Guidance from AI professionals."},
+{icon:"🚀",title:"Entrepreneurship Bootcamp",category:"Workshop",date:"2026-02-15",time:"10:00",desc:"Startup ideas & funding."},
+{icon:"💼",title:"Placement Readiness Webinar",category:"Placement",date:"2026-02-20",time:"14:00",desc:"Interview preparation."}
+];
 
-  /* ================= FUNCTIONS ================= */
-  function renderEvents(){
-    eventsGrid.innerHTML = "";
-    events.forEach((e,i)=>{
-      eventsGrid.innerHTML += `
-        <div class="event-card" onclick="openEvent(${i})">
-          <div style="font-size:1.6rem">${e.icon}</div>
-          <h4>${e.title}</h4>
-          <div class="event-meta">${e.category}</div>
-          <div class="event-meta">📅 ${e.date} ⏰ ${e.time}</div>
-          <p style="font-size:0.85rem;margin-top:0.5rem">${e.desc}</p>
-        </div>`;
-    });
-  }
+/* ================= PAGE LOAD ================= */
+window.onload = function () {
+const adminSection = document.getElementById("adminSection");
 
-  function addEvent(){
-    if(userRole !== "admin"){
-      alert("Access denied. Admin only.");
-      return;
-    }
+if (userRole === "admin") {
+  adminSection.style.display = "block";
+}
 
-    events.unshift({
-      icon: eIcon.value,
-      title: eTitle.value,
-      category: eCategory.value,
-      date: eDate.value,
-      time: eTime.value,
-      desc: eDesc.value
-    });
+renderEvents();
+};
 
-    renderEvents();
-  }
+/* ================= RENDER EVENTS ================= */
+function renderEvents(){
+const grid = document.getElementById("eventsGrid");
+grid.innerHTML = "";
 
-  function openEvent(i){
-    const e = events[i];
-    mTitle.innerText = e.icon + " " + e.title;
-    mCategory.innerText = "Category: " + e.category;
-    mDate.innerText = "Date & Time: " + e.date + " " + e.time;
-    mDesc.innerText = e.desc;
-    eventModal.style.display = "flex";
-  }
+events.forEach((e,i)=>{
+  grid.innerHTML += `
+  <div class="event-card" onclick="openEvent(${i})">
+    <div style="font-size:1.6rem">${e.icon}</div>
+    <h4>${e.title}</h4>
+    <div class="event-meta">${e.category}</div>
+    <div class="event-meta">📅 ${e.date} ⏰ ${e.time}</div>
+    <p style="font-size:0.85rem;margin-top:0.5rem">${e.desc}</p>
+  </div>`;
+});
+}
 
-  function closeEvent(){
-    eventModal.style.display = "none";
-  }
+/* ================= ADD EVENT ================= */
+function addEvent(){
+if (userRole !== "admin"){
+  alert("Access Denied. Only Admin can add events.");
+  return;
+}
+
+const title = document.getElementById("eTitle").value.trim();
+const icon = document.getElementById("eIcon").value.trim() || "📢";
+const date = document.getElementById("eDate").value;
+const time = document.getElementById("eTime").value;
+const category = document.getElementById("eCategory").value;
+const desc = document.getElementById("eDesc").value.trim();
+
+if(!title || !date || !time || !category){
+  alert("Please fill all required fields.");
+  return;
+}
+
+events.unshift({icon,title,category,date,time,desc});
+
+document.getElementById("eTitle").value="";
+document.getElementById("eIcon").value="";
+document.getElementById("eDate").value="";
+document.getElementById("eTime").value="";
+document.getElementById("eCategory").value="";
+document.getElementById("eDesc").value="";
+
+renderEvents();
+}
+
+/* ================= OPEN MODAL ================= */
+function openEvent(i){
+const e = events[i];
+document.getElementById("mTitle").innerText = e.icon + " " + e.title;
+document.getElementById("mCategory").innerText = "Category: " + e.category;
+document.getElementById("mDate").innerText = "Date & Time: " + e.date + " " + e.time;
+document.getElementById("mDesc").innerText = e.desc;
+document.getElementById("eventModal").style.display = "flex";
+}
+
+function closeEvent(){
+document.getElementById("eventModal").style.display = "none";
+}
+
 </script>
 
 </body>
