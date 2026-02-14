@@ -8,8 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#f1f5f9;color:#1e293b}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#ffffff;
+  color:#1e293b;
+}
 
 /* NAVBAR */
 .navbar{
@@ -20,82 +29,90 @@ body{background:#f1f5f9;color:#1e293b}
   background:#ffffff;
   border-bottom:1px solid #e2e8f0;
 }
-.navbar h2{color:#2563eb}
-.navbar a{text-decoration:none;color:#475569;margin-left:25px;font-weight:500}
-.navbar a:hover{color:#2563eb}
 
-/* LAYOUT */
+.navbar h2{
+  font-weight:600;
+  color:#2563eb;
+}
+
+.navbar a{
+  text-decoration:none;
+  color:#475569;
+  margin-left:25px;
+  font-weight:500;
+}
+
+.navbar a:hover{
+  color:#2563eb;
+}
+
+/* MAIN LAYOUT */
 .container{
   max-width:1200px;
-  margin:30px auto;
+  margin:40px auto;
+  background:#ffffff;
+  border-radius:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
   display:grid;
-  grid-template-columns:320px 1fr;
-  gap:20px;
+  grid-template-columns:300px 1fr;
+  height:550px;
+  overflow:hidden;
 }
 
 /* LEFT PANEL */
 .sidebar{
-  background:#ffffff;
-  border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.05);
+  border-right:1px solid #e2e8f0;
+  background:#f8fafc;
+}
+
+.sidebar-header{
   padding:20px;
-}
-
-.search-box input{
-  width:100%;
-  padding:10px;
-  border-radius:8px;
-  border:1px solid #cbd5e1;
-  margin-bottom:15px;
-}
-
-.filter-title{
-  font-size:14px;
   font-weight:600;
-  margin-bottom:8px;
+  border-bottom:1px solid #e2e8f0;
 }
 
-.alumni-card{
-  padding:12px;
-  border:1px solid #e2e8f0;
-  border-radius:8px;
-  margin-bottom:12px;
+.user{
+  padding:18px 20px;
+  border-bottom:1px solid #e2e8f0;
   cursor:pointer;
   transition:0.2s;
 }
-.alumni-card:hover{background:#f8fafc}
-.alumni-card h4{font-size:15px}
-.alumni-card p{font-size:12px;color:#64748b}
 
-/* CHAT */
+.user:hover{
+  background:#e0e7ff;
+}
+
+.user.active{
+  background:#dbeafe;
+  font-weight:500;
+}
+
+/* CHAT AREA */
 .chat{
-  background:#ffffff;
-  border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.05);
   display:flex;
   flex-direction:column;
 }
 
 .chat-header{
-  padding:18px;
+  padding:20px;
   border-bottom:1px solid #e2e8f0;
   font-weight:600;
+  background:#ffffff;
 }
 
 .chat-messages{
   flex:1;
   padding:20px;
   overflow-y:auto;
-  background:#f8fafc;
+  background:#f9fafb;
 }
 
 .message{
-  max-width:70%;
+  max-width:65%;
   padding:10px 14px;
   border-radius:10px;
-  margin-bottom:10px;
+  margin-bottom:12px;
   font-size:14px;
-  position:relative;
 }
 
 .student{
@@ -107,16 +124,11 @@ body{background:#f1f5f9;color:#1e293b}
   margin-left:auto;
 }
 
-.time{
-  font-size:10px;
-  color:#64748b;
-  margin-top:4px;
-}
-
 .chat-input{
   display:flex;
-  padding:15px;
+  padding:15px 20px;
   border-top:1px solid #e2e8f0;
+  background:#ffffff;
 }
 
 .chat-input input{
@@ -124,6 +136,7 @@ body{background:#f1f5f9;color:#1e293b}
   padding:10px;
   border-radius:8px;
   border:1px solid #cbd5e1;
+  outline:none;
 }
 
 .chat-input button{
@@ -134,6 +147,7 @@ body{background:#f1f5f9;color:#1e293b}
   background:#2563eb;
   color:white;
   cursor:pointer;
+  font-weight:500;
 }
 
 .chat-input button:hover{
@@ -142,7 +156,13 @@ body{background:#f1f5f9;color:#1e293b}
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .container{grid-template-columns:1fr}
+  .container{
+    grid-template-columns:1fr;
+    height:auto;
+  }
+  .sidebar{
+    display:none;
+  }
 }
 </style>
 </head>
@@ -159,44 +179,25 @@ body{background:#f1f5f9;color:#1e293b}
 
 <div class="container">
 
-  <!-- SIDEBAR -->
+  <!-- Sidebar -->
   <div class="sidebar">
-    <div class="search-box">
-      <input type="text" placeholder="Search alumni...">
-    </div>
-
-    <div class="filter-title">Available Alumni</div>
-
-    <div class="alumni-card" onclick="selectAlumni('Rahul Patil - Software Engineer at TCS')">
-      <h4>Rahul Patil</h4>
-      <p>Software Engineer • TCS • Batch 2020</p>
-      <p>Placement Guidance</p>
-    </div>
-
-    <div class="alumni-card" onclick="selectAlumni('Neha Kulkarni - MS USA')">
-      <h4>Neha Kulkarni</h4>
-      <p>MS Computer Science • USA • Batch 2019</p>
-      <p>Higher Studies</p>
-    </div>
-
-    <div class="alumni-card" onclick="selectAlumni('Amit Sharma - Startup Founder')">
-      <h4>Amit Sharma</h4>
-      <p>Founder • AI Startup • Batch 2018</p>
-      <p>Startup & Projects</p>
-    </div>
-
+    <div class="sidebar-header">Conversations</div>
+    <div class="user active">Rahul Patil (Alumni)</div>
+    <div class="user">Neha Kulkarni (Student)</div>
+    <div class="user">Amit Sharma (Alumni)</div>
   </div>
 
-  <!-- CHAT AREA -->
+  <!-- Chat -->
   <div class="chat">
-    <div class="chat-header" id="chatHeader">
-      Select an Alumni to Start Conversation
+    <div class="chat-header">Rahul Patil</div>
+
+    <div class="chat-messages" id="chatBox">
+      <div class="message student">Hello sir, I need guidance about placements.</div>
+      <div class="message alumni">Sure. Which domain are you preparing for?</div>
     </div>
 
-    <div class="chat-messages" id="chatBox"></div>
-
     <div class="chat-input">
-      <input type="text" id="messageInput" placeholder="Type your query...">
+      <input type="text" id="messageInput" placeholder="Type your message...">
       <button onclick="sendMessage()">Send</button>
     </div>
   </div>
@@ -204,34 +205,19 @@ body{background:#f1f5f9;color:#1e293b}
 </div>
 
 <script>
-let selectedAlumni = "";
-
-function selectAlumni(name){
-  selectedAlumni = name;
-  document.getElementById("chatHeader").innerText = name;
-  document.getElementById("chatBox").innerHTML = "";
-}
-
 function sendMessage(){
-  if(!selectedAlumni){
-    alert("Please select an alumni first.");
-    return;
-  }
-
   const input=document.getElementById("messageInput");
   const chatBox=document.getElementById("chatBox");
 
   if(input.value.trim()==="") return;
 
-  const now = new Date();
-  const time = now.getHours() + ":" + now.getMinutes();
+  const newMsg=document.createElement("div");
+  newMsg.classList.add("message","student");
+  newMsg.textContent=input.value;
 
-  const msg=document.createElement("div");
-  msg.classList.add("message","student");
-  msg.innerHTML = input.value + "<div class='time'>"+time+"</div>";
-
-  chatBox.appendChild(msg);
+  chatBox.appendChild(newMsg);
   chatBox.scrollTop=chatBox.scrollHeight;
+
   input.value="";
 }
 </script>
